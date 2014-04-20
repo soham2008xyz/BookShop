@@ -18,13 +18,39 @@ Begin VB.Form Form1
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.Timer Timer1 
+      Enabled         =   0   'False
       Interval        =   50
       Left            =   1080
       Top             =   1440
    End
-   Begin VB.Label Label1 
+   Begin VB.Label Label6 
+      Caption         =   "Label6"
+      Height          =   495
+      Left            =   4920
+      TabIndex        =   5
+      Top             =   960
+      Width           =   1215
+   End
+   Begin VB.Label Label5 
+      Caption         =   "Label5"
+      Height          =   495
+      Left            =   3360
+      TabIndex        =   4
+      Top             =   960
+      Width           =   1215
+   End
+   Begin VB.Label Label4 
+      Caption         =   "Label4"
+      Height          =   495
+      Left            =   1800
+      TabIndex        =   3
+      Top             =   960
+      Width           =   1215
+   End
+   Begin VB.Label Label3 
+      AutoSize        =   -1  'True
       BackColor       =   &H8000000D&
-      Caption         =   "..."
+      Caption         =   "."
       BeginProperty Font 
          Name            =   "Roboto Light"
          Size            =   27.75
@@ -35,11 +61,51 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   615
-      Left            =   1100
+      Height          =   735
+      Left            =   3120
+      TabIndex        =   2
+      Top             =   2760
+      Width           =   135
+   End
+   Begin VB.Label Label2 
+      AutoSize        =   -1  'True
+      BackColor       =   &H8000000D&
+      Caption         =   "."
+      BeginProperty Font 
+         Name            =   "Roboto Light"
+         Size            =   27.75
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   735
+      Left            =   1200
+      TabIndex        =   1
+      Top             =   2760
+      Width           =   135
+   End
+   Begin VB.Label Label1 
+      AutoSize        =   -1  'True
+      BackColor       =   &H8000000D&
+      Caption         =   "."
+      BeginProperty Font 
+         Name            =   "Roboto Light"
+         Size            =   27.75
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   735
+      Left            =   720
       TabIndex        =   0
-      Top             =   2520
-      Width           =   375
+      Top             =   2760
+      Width           =   135
    End
 End
 Attribute VB_Name = "Form1"
@@ -48,40 +114,144 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim dShort As Integer
-Dim dLong As Integer
-
-Dim animCount As Integer
-Dim doneAnim As Boolean
+Dim dLong, dLong2, dLong3 As Integer
+Dim animCount, animCount2, animCount3 As Integer
+Dim doneAnim, animStarted2, animStarted3 As Boolean
 
 Private Sub Form_Load()
 doneAnim = False
 animCount = 0
+'animCount2 = 0
+'animCount3 = 0
 
 dShort = 100
 dLong = 300
+dLong2 = 300
+dLong3 = 300
+
+animStarted2 = False
+animStarted3 = False
+Timer1.Enabled = True
+Label3.left = 0
+Label3.Visible = False
+Label2.left = 0
+Label2.Visible = False
+Label1.left = 0
+Label1.Visible = False
 End Sub
 
 Private Sub Timer1_Timer()
-If Not doneAnim Then
+'If Not doneAnim Then
     If animCount = 0 Then
+        'Timer1.Enabled = True
         Label1.Visible = True
-        Label1.left = 250
+        Label1.left = 0
+        'Label2.Visible = True
+        'Label2.left = Label1.left + 10
         animCount = animCount + 1
-    ElseIf animCount <= 20 Then
-        Label1.left = Label1.left + dShort
-        animCount = animCount + 1
-        dShort = dShort + 1
-    ElseIf animCount <= 30 Then
+    End If
+    If animCount > 0 And animCount <= 8 Then
         Label1.left = Label1.left + dLong
         animCount = animCount + 1
-    ElseIf animCont <= 50 Then
+        dLong = dLong + 10
+    End If
+    If animCount > 8 And animCount <= 25 Then
         Label1.left = Label1.left + dShort
         animCount = animCount + 1
-        dShort = dShort - 1
-    Else
-        'Timer1.Enabled = False
-        Label1.Visible = False
-        animCount = 0
     End If
-End If
+    If animCount > 25 And animCount <= 38 Then
+        dLong = dLong - 10
+        Label1.left = Label1.left + dLong
+        animCount = animCount + 1
+    End If
+    If animCount > 38 Then
+        'Timer1.Enabled = False
+        'doneAnim = True
+        Label1.Visible = False
+        Label1.left = 0
+        animCount = 0
+        dLong = 300
+    End If
+'End If
+
+animCount2 = (animCount - 7)
+If animCount2 < 0 Then animCount2 = animCount2 + 39
+'Label2.Caption = animCount2
+
+'If Not doneAnim Then
+    If animCount2 = 0 Then
+        'Timer1.Enabled = True
+        Label2.Visible = True
+        Label2.left = 0
+        dLong2 = 300
+        animStarted2 = True
+        'Label2.Visible = True
+        'Label2.left = Label1.left + 50
+        'animCount = animCount + 1
+    End If
+    If animCount2 > 0 And animCount2 <= 8 And animStarted2 Then
+        Label2.left = Label2.left + dLong2
+        'animCount = animCount + 1
+        dLong2 = dLong2 + 20
+    End If
+    If animCount2 > 8 And animCount2 <= 25 And animStarted2 Then
+        Label2.left = Label2.left + dShort
+        'animCount = animCount + 1
+    End If
+    If animCount2 > 25 And animCount2 <= 38 And animStarted2 Then
+        dLong2 = dLong2 - 10
+        Label2.left = Label2.left + dLong2
+        'animCount = animCount + 1
+    End If
+    If animCount2 > 38 Then
+        'Timer1.Enabled = False
+        'doneAnim = True
+        Label2.Visible = False
+        Label2.left = 0
+        'animCount = 0
+        'dLong2 = 300
+    End If
+'End If
+
+animCount3 = (animCount - 16)
+If animCount3 < 0 Then animCount3 = animCount3 + 39
+Label4.Caption = animCount
+Label5.Caption = animCount2
+Label6.Caption = animCount3
+
+'If Not doneAnim Then
+    If animCount3 = 0 Then
+        'Timer1.Enabled = True
+        Label3.Visible = True
+        Label3.left = 0
+        dLong3 = 300
+        animStarted3 = True
+        'Label2.Visible = True
+        'Label2.left = Label1.left + 50
+        'animCount = animCount + 1
+    End If
+    If animCount3 > 0 And animCount3 <= 8 And animStarted3 Then
+        Label3.left = Label3.left + dLong3
+        'animCount = animCount + 1
+        dLong3 = dLong3 + 5
+    End If
+    If animCount3 > 8 And animCount3 <= 25 And animStarted3 Then
+        Label3.left = Label3.left + dShort
+        'animCount = animCount + 1
+    End If
+    If animCount3 > 25 And animCount3 <= 38 And animStarted3 Then
+        dLong3 = dLong3 - 5
+        Label3.left = Label3.left + dLong3
+        'animCount = animCount + 1
+    End If
+    If animCount3 > 38 Then
+        'Timer1.Enabled = False
+        'doneAnim = True
+        Label3.Visible = False
+        Label3.left = 0
+        'animCount = 0
+        'dLong2 = 300
+    End If
+'End If
+
 End Sub

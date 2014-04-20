@@ -1,4 +1,4 @@
-WelcomeForm = 104, 104, 973, 530, , 26, 26, 895, 452, C
-HomeView = 16, 144, 885, 570, , 25, 4, 894, 554, C
+WelcomeForm = 104, 104, 973, 530, C, 26, 26, 895, 452, C
+HomeView = 16, 144, 885, 570, C, 25, 4, 894, 554, C
 modCursor = 0, 0, 0, 0, C
 modGDIPlusResize = 0, 0, 0, 0, C

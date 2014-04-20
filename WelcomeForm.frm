@@ -317,6 +317,7 @@ CatalogOption.BackColor = &H8000000D
 AboutOption.BackColor = &H8000000D
 ExitOption.BackColor = &H8000000D
 
+exitVal = vbNo
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -324,7 +325,7 @@ FreeGDIPlus Token
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 35, 35, C, True)
+'ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 35, 35, C, True)
 
 BillingOption.BackColor = &H8000000D
 InventoryOption.BackColor = &H8000000D
@@ -546,6 +547,6 @@ ExitOption.FontItalic = True
 
 End Sub
 
-Private Sub ShopLogo_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 35, 35, vbBlue, True)
-End Sub
+'Private Sub ShopLogo_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+'ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 35, 35, vbBlue, True)
+'End Sub

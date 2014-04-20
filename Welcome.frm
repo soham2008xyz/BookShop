@@ -11,11 +11,6 @@ Begin VB.Form WelcomeForm
    ScaleHeight     =   4425
    ScaleWidth      =   10800
    StartUpPosition =   2  'CenterScreen
-   Begin VB.Timer Timer1 
-      Interval        =   10
-      Left            =   960
-      Top             =   3120
-   End
    Begin VB.CommandButton Command4 
       Appearance      =   0  'Flat
       Caption         =   "Exit"

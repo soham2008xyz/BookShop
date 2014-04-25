@@ -1,6 +1,6 @@
 VERSION 5.00
-Begin VB.Form Form1 
-   Caption         =   "Form1"
+Begin VB.Form LoginView 
+   Caption         =   "Login"
    ClientHeight    =   4425
    ClientLeft      =   120
    ClientTop       =   465
@@ -8,7 +8,7 @@ Begin VB.Form Form1
    LinkTopic       =   "Form1"
    ScaleHeight     =   4425
    ScaleWidth      =   10140
-   StartUpPosition =   3  'Windows Default
+   StartUpPosition =   2  'CenterScreen
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
       Interval        =   1000
@@ -26,7 +26,9 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
+      IMEMode         =   3  'DISABLE
       Left            =   5040
+      PasswordChar    =   "*"
       TabIndex        =   10
       Top             =   2760
       Width           =   2895
@@ -141,8 +143,7 @@ Begin VB.Form Form1
    End
    Begin VB.Label MessageBar 
       Alignment       =   2  'Center
-      BackColor       =   &H000000C0&
-      Caption         =   "ERROR"
+      Caption         =   "Enter your username and password and click ""Login"""
       BeginProperty Font 
          Name            =   "Roboto Condensed Light"
          Size            =   12
@@ -152,12 +153,11 @@ Begin VB.Form Form1
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00FFFFFF&
+      ForeColor       =   &H00000000&
       Height          =   375
       Left            =   480
       TabIndex        =   4
       Top             =   1440
-      Visible         =   0   'False
       Width           =   9135
    End
    Begin VB.Label OptionIcon 
@@ -224,7 +224,7 @@ Begin VB.Form Form1
       Width           =   3375
    End
 End
-Attribute VB_Name = "Form1"
+Attribute VB_Name = "LoginView"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -234,12 +234,15 @@ Private Declare Function GetSysColor Lib "user32" (ByVal nIndex As Long) As Long
 Dim Token As Long
 Dim C As Long
 Dim i As Integer
+ 
+Dim conn As ADODB.Connection
+Dim login As ADODB.Recordset
 
 Private Sub cmdCancel_Click()
 End
 End Sub
 
-Private Sub cmdCancel_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub cmdCancel_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 cmdLogin.BackColor = &H8000000D
 cmdCancel.BackColor = &HC0&
 cmdLogin.FontItalic = False
@@ -248,25 +251,65 @@ cmdCancel.FontItalic = True
 End Sub
 
 Private Sub cmdLogin_Click()
-MessageBar.Visible = False
+'MessageBar.Visible = False
 Timer1.Enabled = False
 
 If txtUsername.Text = "" Then
     MessageBar.Caption = "ERROR: Username cannot be empty!"
-    MessageBar.Visible = True
+    'MessageBar.Visible = True
     txtUsername.SetFocus
     Timer1.Enabled = True
     Exit Sub
 ElseIf txtPassword.Text = "" Then
     MessageBar.Caption = "ERROR: Password cannot be empty!"
-    MessageBar.Visible = True
+    'MessageBar.Visible = True
     txtPassword.SetFocus
     Timer1.Enabled = True
     Exit Sub
+Else
+StartConn:
+    Set conn = New ADODB.Connection
+    conn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & App.Path & "\db\BookDB.mdb;Persist Security Info=False"
+    conn.CursorLocation = adUseClient
+    conn.Open
+    If Not conn.State = adStateOpen Then
+        Select Case MsgBox("There was an error opening the databse! Please exit and restart the program. Alternately, you can try to connect again.", vbCritical + vbApplicationModal + vbRetryCancel + vbDefaultButton1, "Database Error")
+        Case vbRetry
+            GoTo StartConn
+        Case vbCancel
+            End
+        End Select
+    End If
+    
+    Set login = New ADODB.Recordset
+    login.CursorType = adOpenDynamic
+    login.CursorLocation = adUseClient
+    login.LockType = adLockOptimistic
+    login.Open "Select * from Users where UserName='" & txtUsername.Text & "'", conn, login.CursorType, login.LockType, adCmdUnknown
+    
+    If login.EOF Then
+        MessageBar.Caption = "ERROR: No such user exists! Please check for spelling errors."
+        'MessageBar.Visible = True
+        txtUsername.SetFocus
+        Timer1.Enabled = True
+        Exit Sub
+    Else
+        If login.Fields("Password") = txtPassword.Text Then
+            Me.Hide
+            HomeView.Show
+        Else
+            MessageBar.Caption = "ERROR: Wrong password! Please check for spelling/capitalization errors."
+            'MessageBar.Visible = True
+            txtPassword.SetFocus
+            Timer1.Enabled = True
+            Exit Sub
+        End If
+    End If
 End If
+
 End Sub
 
-Private Sub cmdLogin_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub cmdLogin_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 cmdLogin.BackColor = &HC0&
 cmdCancel.BackColor = &H8000000D
 cmdLogin.FontItalic = True
@@ -288,7 +331,7 @@ Timer1.Enabled = False
 
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 cmdLogin.BackColor = &H8000000D
 cmdCancel.BackColor = &H8000000D
 cmdLogin.FontItalic = False

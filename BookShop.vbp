@@ -15,6 +15,7 @@ Object={5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0; msflxgrd.ocx
 Object={6BF52A50-394A-11D3-B153-00C04F79FAA6}#1.0#0; wmp.dll
 Object={8E27C92E-1264-101C-8A2F-040224009C02}#7.0#0; MSCAL.OCX
 Form=SplashScreen.frm
+Form=LoginForm.frm
 IconForm="WelcomeForm"
 Startup="Form1"
 HelpFile=""

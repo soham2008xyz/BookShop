@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.Form Form1 
+Begin VB.Form SplashView 
    BackColor       =   &H8000000D&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
@@ -20,32 +20,28 @@ Begin VB.Form Form1
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
       Interval        =   50
-      Left            =   1080
-      Top             =   1440
-   End
-   Begin VB.Label Label6 
-      Caption         =   "Label6"
-      Height          =   495
-      Left            =   4920
-      TabIndex        =   5
-      Top             =   960
-      Width           =   1215
-   End
-   Begin VB.Label Label5 
-      Caption         =   "Label5"
-      Height          =   495
-      Left            =   3360
-      TabIndex        =   4
-      Top             =   960
-      Width           =   1215
+      Left            =   7680
+      Top             =   3360
    End
    Begin VB.Label Label4 
-      Caption         =   "Label4"
-      Height          =   495
-      Left            =   1800
+      Alignment       =   2  'Center
+      BackColor       =   &H8000000D&
+      Caption         =   "xBookShop"
+      BeginProperty Font 
+         Name            =   "Roboto Light"
+         Size            =   20.25
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   975
+      Left            =   2880
       TabIndex        =   3
-      Top             =   960
-      Width           =   1215
+      Top             =   1440
+      Width           =   2415
    End
    Begin VB.Label Label3 
       AutoSize        =   -1  'True
@@ -62,7 +58,7 @@ Begin VB.Form Form1
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   735
-      Left            =   3120
+      Left            =   300
       TabIndex        =   2
       Top             =   2760
       Width           =   135
@@ -82,7 +78,7 @@ Begin VB.Form Form1
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   735
-      Left            =   1200
+      Left            =   900
       TabIndex        =   1
       Top             =   2760
       Width           =   135
@@ -102,13 +98,13 @@ Begin VB.Form Form1
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   735
-      Left            =   720
+      Left            =   600
       TabIndex        =   0
       Top             =   2760
       Width           =   135
    End
 End
-Attribute VB_Name = "Form1"
+Attribute VB_Name = "SplashView"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -138,6 +134,8 @@ Label2.left = 0
 Label2.Visible = False
 Label1.left = 0
 Label1.Visible = False
+Label4.FontBold = True
+
 End Sub
 
 Private Sub Timer1_Timer()
@@ -215,9 +213,6 @@ If animCount2 < 0 Then animCount2 = animCount2 + 39
 
 animCount3 = (animCount - 16)
 If animCount3 < 0 Then animCount3 = animCount3 + 39
-Label4.Caption = animCount
-Label5.Caption = animCount2
-Label6.Caption = animCount3
 
 'If Not doneAnim Then
     If animCount3 = 0 Then

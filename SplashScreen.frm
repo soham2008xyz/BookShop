@@ -113,6 +113,7 @@ Dim dShort As Integer
 Dim dLong, dLong2, dLong3 As Integer
 Dim animCount, animCount2, animCount3 As Integer
 Dim doneAnim, animStarted2, animStarted3 As Boolean
+Dim Time As Long
 
 Private Sub Form_Load()
 doneAnim = False
@@ -135,6 +136,8 @@ Label2.Visible = False
 Label1.left = 0
 Label1.Visible = False
 Label4.FontBold = True
+
+Time = 0
 
 End Sub
 
@@ -248,5 +251,10 @@ If animCount3 < 0 Then animCount3 = animCount3 + 39
         'dLong2 = 300
     End If
 'End If
-
+Time = Time + Timer1.Interval
+If Time > 5000 Then
+    Timer1.Enabled = False
+    Unload Me
+    LoginView.Show
+End If
 End Sub

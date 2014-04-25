@@ -1,17 +1,35 @@
 VERSION 5.00
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form HomeView 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Home"
-   ClientHeight    =   5805
+   ClientHeight    =   6105
    ClientLeft      =   45
    ClientTop       =   390
    ClientWidth     =   10320
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MouseIcon       =   "WelcomeForm.frx":0000
-   ScaleHeight     =   5805
+   ScaleHeight     =   6105
    ScaleWidth      =   10320
    StartUpPosition =   2  'CenterScreen
+   Begin MSComctlLib.StatusBar StatusBar1 
+      Align           =   2  'Align Bottom
+      Height          =   255
+      Left            =   0
+      TabIndex        =   16
+      Top             =   5850
+      Width           =   10320
+      _ExtentX        =   18203
+      _ExtentY        =   450
+      SimpleText      =   "Test Statusbar"
+      _Version        =   393216
+      BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
+         NumPanels       =   1
+         BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+         EndProperty
+      EndProperty
+   End
    Begin VB.PictureBox ExitIcon 
       Height          =   1695
       Left            =   6960

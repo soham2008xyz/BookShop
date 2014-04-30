@@ -1,7 +1,8 @@
-WelcomeForm = 104, 104, 973, 530, , 26, 26, 895, 452, C
-HomeView = 16, 144, 885, 570, , 25, 4, 894, 554, C
 modCursor = 0, 0, 0, 0, C
 modGDIPlusResize = 0, 0, 807, 457, C
-SplashView = 52, 52, 943, 478, Z, 26, 26, 917, 452, C
-LoginView = 137, 99, 1028, 525, , 26, 26, 917, 452, C
 modUser = 182, 182, 989, 608, 
+Form1 = 0, 0, 0, 0, C, 156, 156, 972, 582, C
+WelcomeForm = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+LoginView = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+SplashView = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+HomeView = 0, 0, 0, 0, C, 0, 0, 0, 0, C

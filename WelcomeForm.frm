@@ -22,11 +22,20 @@ Begin VB.Form HomeView
       Width           =   10320
       _ExtentX        =   18203
       _ExtentY        =   661
-      Style           =   1
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
-         NumPanels       =   1
+         NumPanels       =   3
          BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   1
+            Object.Width           =   10319
+         EndProperty
+         BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Object.Width           =   706
+            MinWidth        =   706
+         EndProperty
+         BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Object.Width           =   7056
+            MinWidth        =   7056
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -51,7 +60,7 @@ Begin VB.Form HomeView
       Begin VB.Label ExitOption 
          Alignment       =   2  'Center
          BackColor       =   &H8000000D&
-         Caption         =   "// Exit"
+         Caption         =   "// Logout"
          BeginProperty Font 
             Name            =   "Roboto Light"
             Size            =   14.25
@@ -314,24 +323,33 @@ WelcomeForm.Show
 End Sub
 
 Private Sub ExitIcon_Click()
-exitVal = MsgBox("Are you sure you want to exit?", vbYesNo + vbDefaultButton2 + vbInformation, "Confirm Exit")
-If exitVal = vbYes Then
-    usrLogout
-    End
-End If
+'exitVal = MsgBox("Are you sure you want to log out?", vbYesNo + vbDefaultButton2 + vbInformation + vbApplicationModal, "Confirm Exit")
+'If exitVal = vbYes Then
+'    usrLogout
+'    LoginView.Show
+'    Unload Me
+'End If
+Unload Me
 End Sub
 
 Private Sub ExitOption_Click()
-exitVal = MsgBox("Are you sure you want to exit?", vbYesNo + vbDefaultButton2 + vbInformation, "Confirm Exit")
-If exitVal = vbYes Then End
-    usrLogout
-    End
-End If
+'exitVal = MsgBox("Are you sure you want to log out?", vbYesNo + vbDefaultButton2 + vbInformation + vbApplicationModal, "Confirm Exit")
+'If exitVal = vbYes Then End
+'    usrLogout
+'    LoginView.Show
+'    Unload Me
+'End If
+Unload Me
 End Sub
 
 Private Sub Form_Activate()
-StatusView.SimpleText = "Hello " & username & "!"
+'StatusView.Style = sbrSimple
+'StatusView.SimpleText = "Hello " & username & "!"
+StatusView.Panels(1).Text = "Hello " & username & "!"
+StatusView.Panels(3).Text = "Last logged in at " & lastLogin
+StatusView.Panels(2).Picture = LoadPictureGDIPlus(App.Path & "\Images\clock.png", 25, 20, C, True)
 
+exitVal = vbNo
 End Sub
 
 Private Sub Form_Load()
@@ -359,9 +377,15 @@ exitVal = vbNo
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-FreeGDIPlus Token
-LoginView.Show
-usrLogout
+exitVal = MsgBox("Are you sure you want to log out?", vbYesNo + vbDefaultButton2 + vbInformation + vbApplicationModal, "Confirm Exit")
+If exitVal = vbYes Then
+    usrLogout
+    LoginView.Show
+    FreeGDIPlus Token
+    Unload Me
+Else
+    Cancel = 1
+End If
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)

@@ -234,12 +234,13 @@ Private Declare Function GetSysColor Lib "user32" (ByVal nIndex As Long) As Long
 Dim Token As Long
 Dim C As Long
 Dim i As Integer
- 
+Dim exitVal As Integer
+
 Dim conn As ADODB.Connection
 Dim login As ADODB.Recordset
 
 Private Sub cmdCancel_Click()
-End
+Unload Me
 End Sub
 
 Private Sub cmdCancel_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
@@ -322,7 +323,7 @@ End Sub
 
 Private Sub Form_Activate()
 txtUsername.SetFocus
-
+exitVal = vbNo
 End Sub
 
 Private Sub Form_Load()
@@ -336,7 +337,7 @@ cmdCancel.BackColor = &H8000000D
 
 i = 0
 Timer1.Enabled = False
-
+exitVal = vbNo
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
@@ -348,10 +349,17 @@ cmdCancel.FontItalic = False
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-FreeGDIPlus Token
+exitVal = MsgBox("Are you sure you want to exit the application?", vbYesNo + vbDefaultButton2 + vbInformation + vbApplicationModal, "Confirm Exit")
+If exitVal = vbYes Then
+    usrLogout
+    LoginView.Show
+    FreeGDIPlus Token
+    End
+Else
+    Cancel = 1
+End If
 End Sub
 
 Private Sub Timer1_Timer()
 MessageBar.FontBold = Not MessageBar.FontBold
-
 End Sub

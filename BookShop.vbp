@@ -17,6 +17,7 @@ Object={8E27C92E-1264-101C-8A2F-040224009C02}#7.0#0; MSCAL.OCX
 Form=SplashScreen.frm
 Form=LoginForm.frm
 Object={67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0; MSADODC.OCX
+Module=modUser; lib\modUser.bas
 IconForm="WelcomeForm"
 Startup="SplashView"
 HelpFile=""

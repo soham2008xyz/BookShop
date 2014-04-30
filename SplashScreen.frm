@@ -138,7 +138,6 @@ Label1.Visible = False
 Label4.FontBold = True
 
 Time = 0
-
 End Sub
 
 Private Sub Timer1_Timer()

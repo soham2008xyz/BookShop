@@ -13,21 +13,31 @@ Begin VB.Form HomeView
    ScaleHeight     =   6105
    ScaleWidth      =   10320
    StartUpPosition =   2  'CenterScreen
-   Begin MSComctlLib.StatusBar StatusBar1 
+   Begin MSComctlLib.StatusBar StatusView 
       Align           =   2  'Align Bottom
-      Height          =   255
+      Height          =   375
       Left            =   0
       TabIndex        =   16
-      Top             =   5850
+      Top             =   5730
       Width           =   10320
       _ExtentX        =   18203
-      _ExtentY        =   450
+      _ExtentY        =   661
+      Style           =   1
       SimpleText      =   "Test Statusbar"
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   1
          BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
          EndProperty
+      EndProperty
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Roboto Light"
+         Size            =   12
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
       EndProperty
    End
    Begin VB.PictureBox ExitIcon 
@@ -186,7 +196,6 @@ Begin VB.Form HomeView
       BorderStyle     =   0  'None
       Height          =   495
       Left            =   9240
-      MousePointer    =   10  'Up Arrow
       ScaleHeight     =   495
       ScaleWidth      =   735
       TabIndex        =   0
@@ -340,6 +349,7 @@ End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
 FreeGDIPlus Token
+LoginView.Show
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)

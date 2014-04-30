@@ -297,6 +297,9 @@ StartConn:
         If login.Fields("Password") = txtPassword.Text Then
             Me.Hide
             HomeView.Show
+            txtUsername.Text = ""
+            txtPassword.Text = ""
+                        
         Else
             MessageBar.Caption = "ERROR: Wrong password! Please check for spelling/capitalization errors."
             'MessageBar.Visible = True

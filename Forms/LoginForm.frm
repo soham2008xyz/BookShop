@@ -1,11 +1,13 @@
 VERSION 5.00
 Begin VB.Form LoginView 
+   BorderStyle     =   1  'Fixed Single
    Caption         =   "Login"
    ClientHeight    =   4425
-   ClientLeft      =   120
-   ClientTop       =   465
+   ClientLeft      =   45
+   ClientTop       =   390
    ClientWidth     =   10140
    LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
    ScaleHeight     =   4425
    ScaleWidth      =   10140
    StartUpPosition =   2  'CenterScreen
@@ -236,7 +238,7 @@ Dim C As Long
 Dim i As Integer
 Dim exitVal As Integer
 
-Dim conn As ADODB.Connection
+'Dim conn As ADODB.Connection
 Dim login As ADODB.Recordset
 
 Private Sub cmdCancel_Click()
@@ -268,20 +270,6 @@ ElseIf txtPassword.Text = "" Then
     Timer1.Enabled = True
     Exit Sub
 Else
-StartConn:
-    Set conn = New ADODB.Connection
-    conn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & App.Path & "\db\BookDB.mdb;Persist Security Info=False"
-    conn.CursorLocation = adUseClient
-    conn.Open
-    If Not conn.State = adStateOpen Then
-        Select Case MsgBox("There was an error opening the databse! Please exit and restart the program. Alternately, you can try to connect again.", vbCritical + vbApplicationModal + vbRetryCancel + vbDefaultButton1, "Database Error")
-        Case vbRetry
-            GoTo StartConn
-        Case vbCancel
-            End
-        End Select
-    End If
-    
     Set login = New ADODB.Recordset
     login.CursorType = adOpenDynamic
     login.CursorLocation = adUseClient
@@ -299,6 +287,7 @@ StartConn:
             Me.Hide
             HomeView.Show
             usrLogin login.Fields("Username"), login.Fields("Password")
+            'usrLogin txtUsername.Text, txtPassword.Text
             txtUsername.Text = ""
             txtPassword.Text = ""
         Else
@@ -351,8 +340,6 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
 exitVal = MsgBox("Are you sure you want to exit the application?", vbYesNo + vbDefaultButton2 + vbInformation + vbApplicationModal, "Confirm Exit")
 If exitVal = vbYes Then
-    usrLogout
-    LoginView.Show
     FreeGDIPlus Token
     End
 Else

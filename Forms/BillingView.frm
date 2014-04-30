@@ -1,5 +1,6 @@
 VERSION 5.00
-Begin VB.Form Form1 
+Object = "{935C9182-411B-4FFB-9512-97C8745743BC}#2.5#0"; "AResize.ocx"
+Begin VB.Form BillingView 
    Caption         =   "Form1"
    ClientHeight    =   6000
    ClientLeft      =   120
@@ -8,206 +9,101 @@ Begin VB.Form Form1
    LinkTopic       =   "Form1"
    ScaleHeight     =   6000
    ScaleWidth      =   10350
-   StartUpPosition =   3  'Windows Default
-   Begin VB.PictureBox InventoryIcon 
-      Height          =   1695
-      Left            =   3720
-      MousePointer    =   10  'Up Arrow
-      ScaleHeight     =   1635
-      ScaleWidth      =   2835
-      TabIndex        =   11
+   StartUpPosition =   2  'CenterScreen
+   WindowState     =   2  'Maximized
+   Begin VB.Frame PreviewFrame 
+      Caption         =   "Frame2"
+      BeginProperty Font 
+         Name            =   "Roboto Light"
+         Size            =   12
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   8415
+      Left            =   9960
+      TabIndex        =   5
       Top             =   1560
-      Width           =   2895
-      Begin VB.Label InventoryOption 
-         Alignment       =   2  'Center
-         BackColor       =   &H8000000D&
-         Caption         =   "// Go to Inventory"
+      Width           =   9735
+   End
+   Begin VB.Frame BillingFrame 
+      Caption         =   "Frame1"
+      BeginProperty Font 
+         Name            =   "Roboto Light"
+         Size            =   12
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   8415
+      Left            =   480
+      TabIndex        =   4
+      Top             =   1560
+      Width           =   9255
+      Begin VB.ComboBox Combo1 
+         Height          =   315
+         Left            =   720
+         TabIndex        =   7
+         Text            =   "Combo1"
+         Top             =   5520
+         Width           =   5175
+      End
+      Begin VB.ListBox List1 
+         Columns         =   1
          BeginProperty Font 
             Name            =   "Roboto Light"
-            Size            =   14.25
+            Size            =   12
             Charset         =   0
             Weight          =   300
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H8000000E&
-         Height          =   495
-         Left            =   0
-         TabIndex        =   12
-         Top             =   1200
-         Width           =   2895
+         Height          =   4155
+         ItemData        =   "BillingView.frx":0000
+         Left            =   360
+         List            =   "BillingView.frx":0002
+         TabIndex        =   6
+         Top             =   960
+         Width           =   5295
       End
+   End
+   Begin ActiveResizeCtl.ActiveResize ActiveResize1 
+      Left            =   4080
+      Top             =   240
+      _ExtentX        =   847
+      _ExtentY        =   847
+      Resolution      =   99
+      ScreenHeight    =   768
+      ScreenWidth     =   1366
+      ScreenHeightDT  =   768
+      ScreenWidthDT   =   1366
+      FormHeightDT    =   6585
+      FormWidthDT     =   10590
+      FormScaleHeightDT=   6000
+      FormScaleWidthDT=   10350
    End
    Begin VB.PictureBox ShopLogo 
       BorderStyle     =   0  'None
       Height          =   495
-      Left            =   9240
+      Left            =   19080
       ScaleHeight     =   495
       ScaleWidth      =   735
-      TabIndex        =   10
+      TabIndex        =   0
       Tag             =   "no_resize"
       ToolTipText     =   "Go to Main Screen"
       Top             =   240
       Width           =   735
    End
-   Begin VB.PictureBox BillingIcon 
-      Height          =   1695
-      Left            =   480
-      MouseIcon       =   "BillingView.frx":0000
-      MousePointer    =   10  'Up Arrow
-      ScaleHeight     =   1635
-      ScaleWidth      =   2895
-      TabIndex        =   8
-      ToolTipText     =   "Go to Billing Screen"
-      Top             =   1560
-      Width           =   2955
-      Begin VB.Label BillingOption 
-         Alignment       =   2  'Center
-         BackColor       =   &H8000000D&
-         Caption         =   "// Go to Billing"
-         BeginProperty Font 
-            Name            =   "Roboto Light"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   300
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H8000000E&
-         Height          =   495
-         Left            =   0
-         TabIndex        =   9
-         Top             =   1200
-         Width           =   2895
-      End
-   End
-   Begin VB.PictureBox CatalogIcon 
-      Height          =   1695
-      Left            =   480
-      MousePointer    =   10  'Up Arrow
-      ScaleHeight     =   1635
-      ScaleWidth      =   2835
-      TabIndex        =   6
-      Top             =   3600
-      Width           =   2895
-      Begin VB.Label CatalogOption 
-         Alignment       =   2  'Center
-         BackColor       =   &H8000000D&
-         Caption         =   "// View Catalog"
-         BeginProperty Font 
-            Name            =   "Roboto Light"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   300
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H80000014&
-         Height          =   495
-         Left            =   0
-         TabIndex        =   7
-         Top             =   1200
-         Width           =   2895
-      End
-   End
-   Begin VB.PictureBox AboutIcon 
-      Height          =   1695
-      Left            =   3720
-      MousePointer    =   10  'Up Arrow
-      ScaleHeight     =   1635
-      ScaleWidth      =   2835
-      TabIndex        =   4
-      Top             =   3600
-      Width           =   2895
-      Begin VB.Label AboutOption 
-         Alignment       =   2  'Center
-         BackColor       =   &H8000000D&
-         Caption         =   "// About Application"
-         BeginProperty Font 
-            Name            =   "Roboto Light"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   300
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H8000000E&
-         Height          =   495
-         Left            =   0
-         TabIndex        =   5
-         Top             =   1200
-         Width           =   2895
-      End
-   End
-   Begin VB.PictureBox ReportsIcon 
-      Height          =   1695
-      Left            =   6960
-      MousePointer    =   10  'Up Arrow
-      ScaleHeight     =   1635
-      ScaleWidth      =   2835
-      TabIndex        =   2
-      Top             =   1560
-      Width           =   2895
-      Begin VB.Label ReportsOption 
-         Alignment       =   2  'Center
-         BackColor       =   &H8000000D&
-         Caption         =   "// View Reports"
-         BeginProperty Font 
-            Name            =   "Roboto Light"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   300
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H8000000E&
-         Height          =   495
-         Left            =   0
-         TabIndex        =   3
-         Top             =   1200
-         Width           =   2895
-      End
-   End
-   Begin VB.PictureBox ExitIcon 
-      Height          =   1695
-      Left            =   6960
-      MousePointer    =   10  'Up Arrow
-      ScaleHeight     =   1635
-      ScaleWidth      =   2835
-      TabIndex        =   0
-      Top             =   3600
-      Width           =   2895
-      Begin VB.Label ExitOption 
-         Alignment       =   2  'Center
-         BackColor       =   &H8000000D&
-         Caption         =   "// Logout"
-         BeginProperty Font 
-            Name            =   "Roboto Light"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   300
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H8000000E&
-         Height          =   495
-         Left            =   0
-         TabIndex        =   1
-         Top             =   1200
-         Width           =   2895
-      End
-   End
    Begin VB.Line Line1 
       BorderColor     =   &H80000002&
       BorderWidth     =   2
       X1              =   480
-      X2              =   9840
+      X2              =   19680
       Y1              =   840
       Y2              =   840
    End
@@ -225,7 +121,7 @@ Begin VB.Form Form1
       EndProperty
       Height          =   480
       Left            =   480
-      TabIndex        =   15
+      TabIndex        =   3
       Top             =   240
       Width           =   3375
    End
@@ -244,7 +140,7 @@ Begin VB.Form Form1
       ForeColor       =   &H000000C0&
       Height          =   315
       Left            =   600
-      TabIndex        =   14
+      TabIndex        =   2
       Top             =   960
       Width           =   180
    End
@@ -262,15 +158,49 @@ Begin VB.Form Form1
       EndProperty
       Height          =   315
       Left            =   960
-      TabIndex        =   13
+      TabIndex        =   1
       Top             =   960
       Width           =   2325
    End
 End
-Attribute VB_Name = "Form1"
+Attribute VB_Name = "BillingView"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Private Declare Function GetSysColor Lib "user32" (ByVal nIndex As Long) As Long
+
 Option Explicit
+Dim Token As Long
+Dim C As Long
+Dim exitVal As Integer
+
+Private Sub DataList1_Click()
+'Debug.Print DataList1.SelectedItem
+'Debug.Print Adodc1.Recordset.AbsolutePosition
+Adodc1.Recordset.AbsolutePosition = DataList1.SelectedItem
+Debug.Print "Selected: " & Adodc1.Recordset.Fields("BookName") & " by " & Adodc1.Recordset.Fields("AuthorName")
+
+End Sub
+
+Private Sub Form_Load()
+Token = InitGDIPlus
+C = Me.BackColor
+If C < 0 Then C = GetSysColor(C - &H80000000)
+ 
+ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", Me.Width / 592, Me.Height / 318, C, False)
+End Sub
+
+Private Sub Form_Resize()
+ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", Me.Width / 592, Me.Height / 318, C, False)
+'Cls
+'Print Me.Width
+'Print Me.Height
+'Print Me.Width / 35
+'Print Me.Height / 35
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+FreeGDIPlus Token
+End Sub
 

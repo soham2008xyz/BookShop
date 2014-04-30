@@ -347,7 +347,7 @@ Private Sub Form_Activate()
 'StatusView.SimpleText = "Hello " & username & "!"
 StatusView.Panels(1).Text = "Hello " & username & "!"
 StatusView.Panels(3).Text = "Last logged in at " & lastLogin
-StatusView.Panels(2).Picture = LoadPictureGDIPlus(App.Path & "\Images\clock.png", 25, 20, C, True)
+StatusView.Panels(2).Picture = LoadPictureGDIPlus(App.Path & "\Images\clock.png", 30, 20, C, True)
 
 exitVal = vbNo
 End Sub

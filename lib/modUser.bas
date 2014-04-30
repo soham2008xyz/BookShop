@@ -22,7 +22,7 @@ Public Sub usrLogin(usr As String, pwd As String)
         lastLogin = Time
         Debug.Print username & " logged in at " & lastLogin
     Else
-        Debug.Print "Already Logged in!" & vbCrLf & "Username: " & username & vbCrLf & "Password: " & password
+        Debug.Print username & " is already logged in! Please logout first."
     End If
 End Sub
 
@@ -33,7 +33,7 @@ Public Sub usrLogout()
         password = ""
         loggedIn = False
     Else
-        Debug.Print "Already Logged out!"
+        Debug.Print "No user is logged in! Please login first."
     End If
 End Sub
 

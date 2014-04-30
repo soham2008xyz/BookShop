@@ -297,9 +297,9 @@ StartConn:
         If login.Fields("Password") = txtPassword.Text Then
             Me.Hide
             HomeView.Show
+            usrLogin login.Fields("Username"), login.Fields("Password")
             txtUsername.Text = ""
             txtPassword.Text = ""
-                        
         Else
             MessageBar.Caption = "ERROR: Wrong password! Please check for spelling/capitalization errors."
             'MessageBar.Visible = True
@@ -317,6 +317,11 @@ cmdLogin.BackColor = &HC0&
 cmdCancel.BackColor = &H8000000D
 cmdLogin.FontItalic = True
 cmdCancel.FontItalic = False
+
+End Sub
+
+Private Sub Form_Activate()
+txtUsername.SetFocus
 
 End Sub
 

@@ -23,7 +23,6 @@ Begin VB.Form HomeView
       _ExtentX        =   18203
       _ExtentY        =   661
       Style           =   1
-      SimpleText      =   "Test Statusbar"
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   1
@@ -316,12 +315,23 @@ End Sub
 
 Private Sub ExitIcon_Click()
 exitVal = MsgBox("Are you sure you want to exit?", vbYesNo + vbDefaultButton2 + vbInformation, "Confirm Exit")
-If exitVal = vbYes Then End
+If exitVal = vbYes Then
+    usrLogout
+    End
+End If
 End Sub
 
 Private Sub ExitOption_Click()
 exitVal = MsgBox("Are you sure you want to exit?", vbYesNo + vbDefaultButton2 + vbInformation, "Confirm Exit")
 If exitVal = vbYes Then End
+    usrLogout
+    End
+End If
+End Sub
+
+Private Sub Form_Activate()
+StatusView.SimpleText = "Hello " & username & "!"
+
 End Sub
 
 Private Sub Form_Load()
@@ -345,11 +355,13 @@ AboutOption.BackColor = &H8000000D
 ExitOption.BackColor = &H8000000D
 
 exitVal = vbNo
+
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
 FreeGDIPlus Token
 LoginView.Show
+usrLogout
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)

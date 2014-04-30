@@ -48,60 +48,60 @@ Begin VB.Form SplashView
       BackColor       =   &H8000000D&
       Caption         =   "."
       BeginProperty Font 
-         Name            =   "Roboto Light"
-         Size            =   27.75
+         Name            =   "Segoe UI Symbol"
+         Size            =   48
          Charset         =   0
-         Weight          =   300
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   735
-      Left            =   300
+      Height          =   1290
+      Left            =   480
       TabIndex        =   2
-      Top             =   2760
-      Width           =   135
+      Top             =   2400
+      Width           =   210
    End
    Begin VB.Label Label2 
       AutoSize        =   -1  'True
       BackColor       =   &H8000000D&
       Caption         =   "."
       BeginProperty Font 
-         Name            =   "Roboto Light"
-         Size            =   27.75
+         Name            =   "Segoe UI Symbol"
+         Size            =   48
          Charset         =   0
-         Weight          =   300
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   735
-      Left            =   900
+      Height          =   1290
+      Left            =   1440
       TabIndex        =   1
-      Top             =   2760
-      Width           =   135
+      Top             =   2400
+      Width           =   210
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
       BackColor       =   &H8000000D&
       Caption         =   "."
       BeginProperty Font 
-         Name            =   "Roboto Light"
-         Size            =   27.75
+         Name            =   "Segoe UI Symbol"
+         Size            =   48
          Charset         =   0
-         Weight          =   300
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   735
-      Left            =   600
+      Height          =   1290
+      Left            =   960
       TabIndex        =   0
-      Top             =   2760
-      Width           =   135
+      Top             =   2400
+      Width           =   210
    End
 End
 Attribute VB_Name = "SplashView"
@@ -113,7 +113,7 @@ Dim dShort As Integer
 Dim dLong, dLong2, dLong3 As Integer
 Dim animCount, animCount2, animCount3 As Integer
 Dim doneAnim, animStarted2, animStarted3 As Boolean
-Dim Time As Long
+Dim loadTime As Long
 
 Private Sub Form_Load()
 doneAnim = False
@@ -137,7 +137,8 @@ Label1.left = 0
 Label1.Visible = False
 Label4.FontBold = True
 
-Time = 0
+loadTime = 0
+initUser
 End Sub
 
 Private Sub Timer1_Timer()
@@ -250,8 +251,8 @@ If animCount3 < 0 Then animCount3 = animCount3 + 39
         'dLong2 = 300
     End If
 'End If
-Time = Time + Timer1.Interval
-If Time > 5000 Then
+loadTime = loadTime + Timer1.Interval
+If loadTime > 5000 Then
     Timer1.Enabled = False
     Unload Me
     LoginView.Show

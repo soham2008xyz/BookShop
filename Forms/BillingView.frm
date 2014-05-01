@@ -1,16 +1,65 @@
 VERSION 5.00
+Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{935C9182-411B-4FFB-9512-97C8745743BC}#2.5#0"; "AResize.ocx"
+Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Begin VB.Form BillingView 
    Caption         =   "Form1"
-   ClientHeight    =   6000
+   ClientHeight    =   8385
    ClientLeft      =   120
    ClientTop       =   465
-   ClientWidth     =   10350
+   ClientWidth     =   15150
+   Enabled         =   0   'False
    LinkTopic       =   "Form1"
-   ScaleHeight     =   6000
-   ScaleWidth      =   10350
+   ScaleHeight     =   8385
+   ScaleWidth      =   15150
    StartUpPosition =   2  'CenterScreen
-   WindowState     =   2  'Maximized
+   Begin MSAdodcLib.Adodc BookList 
+      Height          =   330
+      Left            =   4800
+      Top             =   360
+      Visible         =   0   'False
+      Width           =   2295
+      _ExtentX        =   4048
+      _ExtentY        =   582
+      ConnectMode     =   0
+      CursorLocation  =   3
+      IsolationLevel  =   -1
+      ConnectionTimeout=   15
+      CommandTimeout  =   30
+      CursorType      =   2
+      LockType        =   3
+      CommandType     =   8
+      CursorOptions   =   0
+      CacheSize       =   50
+      MaxRecords      =   0
+      BOFAction       =   0
+      EOFAction       =   0
+      ConnectStringType=   1
+      Appearance      =   1
+      BackColor       =   -2147483643
+      ForeColor       =   -2147483640
+      Orientation     =   0
+      Enabled         =   0
+      Connect         =   ""
+      OLEDBString     =   ""
+      OLEDBFile       =   ""
+      DataSourceName  =   ""
+      OtherAttributes =   ""
+      UserName        =   ""
+      Password        =   ""
+      RecordSource    =   ""
+      Caption         =   "Book List"
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      _Version        =   393216
+   End
    Begin VB.Frame PreviewFrame 
       Caption         =   "Frame2"
       BeginProperty Font 
@@ -22,14 +71,14 @@ Begin VB.Form BillingView
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   8415
-      Left            =   9960
+      Height          =   4695
+      Left            =   6960
       TabIndex        =   5
-      Top             =   1560
-      Width           =   9735
+      Top             =   1440
+      Width           =   5775
    End
-   Begin VB.Frame BillingFrame 
-      Caption         =   "Frame1"
+   Begin VB.Frame BookFrame 
+      Caption         =   "Select Book"
       BeginProperty Font 
          Name            =   "Roboto Light"
          Size            =   12
@@ -39,37 +88,24 @@ Begin VB.Form BillingView
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   8415
-      Left            =   480
+      Height          =   4695
+      Left            =   600
       TabIndex        =   4
-      Top             =   1560
-      Width           =   9255
-      Begin VB.ComboBox Combo1 
-         Height          =   315
-         Left            =   720
-         TabIndex        =   7
-         Text            =   "Combo1"
-         Top             =   5520
-         Width           =   5175
-      End
-      Begin VB.ListBox List1 
-         Columns         =   1
-         BeginProperty Font 
-            Name            =   "Roboto Light"
-            Size            =   12
-            Charset         =   0
-            Weight          =   300
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   4155
-         ItemData        =   "BillingView.frx":0000
+      Top             =   1440
+      Width           =   6015
+      Begin MSDataListLib.DataList DataList1 
+         Bindings        =   "BillingView.frx":0000
+         DataSource      =   "Adodc1"
+         Height          =   3570
          Left            =   360
-         List            =   "BillingView.frx":0002
          TabIndex        =   6
-         Top             =   960
+         Top             =   600
          Width           =   5295
+         _ExtentX        =   9340
+         _ExtentY        =   6297
+         _Version        =   393216
+         ListField       =   "BOOKNAME"
+         BoundColumn     =   ""
       End
    End
    Begin ActiveResizeCtl.ActiveResize ActiveResize1 
@@ -82,15 +118,15 @@ Begin VB.Form BillingView
       ScreenWidth     =   1366
       ScreenHeightDT  =   768
       ScreenWidthDT   =   1366
-      FormHeightDT    =   6585
-      FormWidthDT     =   10590
-      FormScaleHeightDT=   6000
-      FormScaleWidthDT=   10350
+      FormHeightDT    =   8970
+      FormWidthDT     =   15390
+      FormScaleHeightDT=   8385
+      FormScaleWidthDT=   15150
    End
    Begin VB.PictureBox ShopLogo 
       BorderStyle     =   0  'None
       Height          =   495
-      Left            =   19080
+      Left            =   14040
       ScaleHeight     =   495
       ScaleWidth      =   735
       TabIndex        =   0
@@ -103,7 +139,7 @@ Begin VB.Form BillingView
       BorderColor     =   &H80000002&
       BorderWidth     =   2
       X1              =   480
-      X2              =   19680
+      X2              =   14760
       Y1              =   840
       Y2              =   840
    End
@@ -174,13 +210,26 @@ Option Explicit
 Dim Token As Long
 Dim C As Long
 Dim exitVal As Integer
-
+'Dim WithEvents adodc2 As Adodc
+    
 Private Sub DataList1_Click()
 'Debug.Print DataList1.SelectedItem
 'Debug.Print Adodc1.Recordset.AbsolutePosition
 Adodc1.Recordset.AbsolutePosition = DataList1.SelectedItem
 Debug.Print "Selected: " & Adodc1.Recordset.Fields("BookName") & " by " & Adodc1.Recordset.Fields("AuthorName")
 
+End Sub
+
+Private Sub BookListScroll_Change()
+    BookList.ListIndex = BookList.ListIndex + BookListScroll.SmallChange
+    
+End Sub
+
+Private Sub Form_Initialize()
+    Adodc1.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & App.Path & "\db\BookDB.mdb;Persist Security Info=False"
+    Adodc1.CursorLocation = adUseClient
+    Adodc1.CursorType = adOpenDynamic
+    
 End Sub
 
 Private Sub Form_Load()

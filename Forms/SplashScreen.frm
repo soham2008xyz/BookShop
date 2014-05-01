@@ -139,7 +139,7 @@ Label4.FontBold = True
 
 loadTime = 0
 initUser
-InitDB
+initDB
 End Sub
 
 Private Sub Timer1_Timer()

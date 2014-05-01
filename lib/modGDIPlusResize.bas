@@ -1,5 +1,6 @@
 Attribute VB_Name = "modGDIPlusResize"
 Option Explicit
+Public Declare Function GetSysColor Lib "user32" (ByVal nIndex As Long) As Long
 
 Private Type GUID
    Data1    As Long

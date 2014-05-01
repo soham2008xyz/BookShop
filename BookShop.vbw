@@ -1,8 +1,7 @@
 modGDIPlusResize = 0, 0, 807, 457, C
 modUser = 182, 182, 989, 608, CI
-BillingView = 0, 0, 816, 426, Z, 61, 56, 912, 614, C
-WelcomeForm = 0, 0, 0, 0, C, 26, 26, 842, 452, C
-LoginView = 47, 100, 863, 526, C, 78, 78, 894, 504, C
+BillingView = 0, 1, 816, 426, C, 61, 56, 912, 614, C
+LoginView = 47, 100, 863, 526, Z, 78, 78, 894, 504, C
 SplashView = 208, 208, 1024, 634, C, 26, 26, 842, 452, C
-HomeView = 52, 52, 868, 478, C, 156, 156, 972, 582, C
-modDatabase = 156, 156, 972, 582, C
+HomeView = 52, 52, 868, 478, I, 156, 156, 972, 582, C
+modDatabase = 156, 156, 972, 582, I

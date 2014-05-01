@@ -8,7 +8,6 @@ Begin VB.Form BillingView
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   15150
-   Enabled         =   0   'False
    LinkTopic       =   "Form1"
    ScaleHeight     =   8385
    ScaleWidth      =   15150
@@ -39,7 +38,7 @@ Begin VB.Form BillingView
       BackColor       =   -2147483643
       ForeColor       =   -2147483640
       Orientation     =   0
-      Enabled         =   0
+      Enabled         =   -1
       Connect         =   ""
       OLEDBString     =   ""
       OLEDBFile       =   ""
@@ -95,7 +94,6 @@ Begin VB.Form BillingView
       Width           =   6015
       Begin MSDataListLib.DataList DataList1 
          Bindings        =   "BillingView.frx":0000
-         DataSource      =   "Adodc1"
          Height          =   3570
          Left            =   360
          TabIndex        =   6
@@ -204,49 +202,38 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Declare Function GetSysColor Lib "user32" (ByVal nIndex As Long) As Long
-
 Option Explicit
 Dim Token As Long
 Dim C As Long
 Dim exitVal As Integer
-'Dim WithEvents adodc2 As Adodc
+
     
 Private Sub DataList1_Click()
-'Debug.Print DataList1.SelectedItem
-'Debug.Print Adodc1.Recordset.AbsolutePosition
-Adodc1.Recordset.AbsolutePosition = DataList1.SelectedItem
-Debug.Print "Selected: " & Adodc1.Recordset.Fields("BookName") & " by " & Adodc1.Recordset.Fields("AuthorName")
+BookList.Recordset.AbsolutePosition = DataList1.SelectedItem
+Debug.Print "Selected: " & BookList.Recordset.Fields("BOOKNAME") & " by " & BookList.Recordset.Fields("AUTHORNAME")
 
-End Sub
-
-Private Sub BookListScroll_Change()
-    BookList.ListIndex = BookList.ListIndex + BookListScroll.SmallChange
-    
 End Sub
 
 Private Sub Form_Initialize()
-    Adodc1.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & App.Path & "\db\BookDB.mdb;Persist Security Info=False"
-    Adodc1.CursorLocation = adUseClient
-    Adodc1.CursorType = adOpenDynamic
+    Token = InitGDIPlus
+    C = Me.BackColor
+    If C < 0 Then C = GetSysColor(C - &H80000000)
+
+    BookList.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & App.Path & "\db\BookDB.mdb;Persist Security Info=False"
+    BookList.CursorLocation = adUseClient
+    BookList.CursorType = adOpenDynamic
+    BookList.CommandType = adCmdTable
+    BookList.RecordSource = "BookList"
+    BookList.Refresh
     
 End Sub
 
 Private Sub Form_Load()
-Token = InitGDIPlus
-C = Me.BackColor
-If C < 0 Then C = GetSysColor(C - &H80000000)
- 
-ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", Me.Width / 592, Me.Height / 318, C, False)
+    ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", Me.Width / 592, Me.Height / 318, C, False)
 End Sub
 
 Private Sub Form_Resize()
-ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", Me.Width / 592, Me.Height / 318, C, False)
-'Cls
-'Print Me.Width
-'Print Me.Height
-'Print Me.Width / 35
-'Print Me.Height / 35
+    ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", Me.Width / 592, Me.Height / 318, C, False)
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)

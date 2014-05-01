@@ -1,13 +1,14 @@
 VERSION 5.00
+Object = "{935C9182-411B-4FFB-9512-97C8745743BC}#2.5#0"; "AResize.ocx"
 Begin VB.Form LoginView 
-   BorderStyle     =   1  'Fixed Single
+   AutoRedraw      =   -1  'True
    Caption         =   "Login"
    ClientHeight    =   4425
-   ClientLeft      =   45
-   ClientTop       =   390
+   ClientLeft      =   120
+   ClientTop       =   465
    ClientWidth     =   10140
    LinkTopic       =   "Form1"
-   MaxButton       =   0   'False
+   Picture         =   "LoginForm.frx":0000
    ScaleHeight     =   4425
    ScaleWidth      =   10140
    StartUpPosition =   2  'CenterScreen
@@ -63,6 +64,23 @@ Begin VB.Form LoginView
       Top             =   240
       Width           =   735
    End
+   Begin ActiveResizeCtl.ActiveResize ActiveResize1 
+      Left            =   4080
+      Top             =   120
+      _ExtentX        =   847
+      _ExtentY        =   847
+      Resolution      =   99
+      ScreenHeight    =   768
+      ScreenWidth     =   1366
+      ScreenHeightDT  =   768
+      ScreenWidthDT   =   1366
+      AutoCenterForm  =   -1  'True
+      FormHeightDT    =   5010
+      FormWidthDT     =   10380
+      FormScaleHeightDT=   4425
+      FormScaleWidthDT=   10140
+      ResizePictureBoxContents=   -1  'True
+   End
    Begin VB.Label cmdCancel 
       Alignment       =   2  'Center
       Appearance      =   0  'Flat
@@ -110,6 +128,7 @@ Begin VB.Form LoginView
       Width           =   2175
    End
    Begin VB.Label lblPassword 
+      BackStyle       =   0  'Transparent
       Caption         =   "Password:"
       BeginProperty Font 
          Name            =   "Roboto Light"
@@ -127,6 +146,7 @@ Begin VB.Form LoginView
       Width           =   2535
    End
    Begin VB.Label lblUsername 
+      BackStyle       =   0  'Transparent
       Caption         =   "User Name:"
       BeginProperty Font 
          Name            =   "Roboto Light"
@@ -145,6 +165,7 @@ Begin VB.Form LoginView
    End
    Begin VB.Label MessageBar 
       Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
       Caption         =   "Enter your username and password and click ""Login"""
       BeginProperty Font 
          Name            =   "Roboto Condensed Light"
@@ -164,6 +185,7 @@ Begin VB.Form LoginView
    End
    Begin VB.Label OptionIcon 
       AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
       Caption         =   "//"
       BeginProperty Font 
          Name            =   "Roboto Thin"
@@ -183,6 +205,7 @@ Begin VB.Form LoginView
    End
    Begin VB.Label OptionLabel 
       AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
       Caption         =   "Login to Application:"
       BeginProperty Font 
          Name            =   "Roboto Light"
@@ -200,7 +223,7 @@ Begin VB.Form LoginView
       Width           =   1950
    End
    Begin VB.Line Line1 
-      BorderColor     =   &H80000002&
+      BorderColor     =   &H8000000D&
       BorderWidth     =   2
       X1              =   360
       X2              =   9720
@@ -209,6 +232,7 @@ Begin VB.Form LoginView
    End
    Begin VB.Label ShopName 
       AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
       Caption         =   "Students Book House"
       BeginProperty Font 
          Name            =   "Roboto Light"
@@ -231,122 +255,114 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Declare Function GetSysColor Lib "user32" (ByVal nIndex As Long) As Long
-
 Dim Token As Long
 Dim C As Long
-Dim i As Integer
 Dim exitVal As Integer
 
-'Dim conn As ADODB.Connection
 Dim login As ADODB.Recordset
 
 Private Sub cmdCancel_Click()
-Unload Me
+    Unload Me
 End Sub
 
 Private Sub cmdCancel_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-cmdLogin.BackColor = &H8000000D
-cmdCancel.BackColor = &HC0&
-cmdLogin.FontItalic = False
-cmdCancel.FontItalic = True
-
+    cmdLogin.BackColor = &H8000000D
+    cmdCancel.BackColor = &HC0&
+    cmdLogin.FontItalic = False
+    cmdCancel.FontItalic = True
 End Sub
 
 Private Sub cmdLogin_Click()
-'MessageBar.Visible = False
-Timer1.Enabled = False
+    Timer1.Enabled = False
 
-If txtUsername.Text = "" Then
-    MessageBar.Caption = "ERROR: Username cannot be empty!"
-    'MessageBar.Visible = True
-    txtUsername.SetFocus
-    Timer1.Enabled = True
-    Exit Sub
-ElseIf txtPassword.Text = "" Then
-    MessageBar.Caption = "ERROR: Password cannot be empty!"
-    'MessageBar.Visible = True
-    txtPassword.SetFocus
-    Timer1.Enabled = True
-    Exit Sub
-Else
-    Set login = New ADODB.Recordset
-    login.CursorType = adOpenDynamic
-    login.CursorLocation = adUseClient
-    login.LockType = adLockOptimistic
-    login.Open "Select * from Users where UserName='" & txtUsername.Text & "'", conn, login.CursorType, login.LockType, adCmdUnknown
-    
-    If login.EOF Then
-        MessageBar.Caption = "ERROR: No such user exists! Please check for spelling errors."
-        'MessageBar.Visible = True
+    If txtUsername.Text = "" Then
+        MessageBar.Caption = "ERROR: Username cannot be empty!"
         txtUsername.SetFocus
         Timer1.Enabled = True
         Exit Sub
+    ElseIf txtPassword.Text = "" Then
+        MessageBar.Caption = "ERROR: Password cannot be empty!"
+        txtPassword.SetFocus
+        Timer1.Enabled = True
+        Exit Sub
     Else
-        If login.Fields("Password") = txtPassword.Text Then
-            Me.Hide
-            HomeView.Show
-            usrLogin login.Fields("Username"), login.Fields("Password")
-            'usrLogin txtUsername.Text, txtPassword.Text
-            txtUsername.Text = ""
-            txtPassword.Text = ""
-        Else
-            MessageBar.Caption = "ERROR: Wrong password! Please check for spelling/capitalization errors."
-            'MessageBar.Visible = True
-            txtPassword.SetFocus
+        Set login = New ADODB.Recordset
+        login.CursorType = adOpenDynamic
+        login.CursorLocation = adUseClient
+        login.LockType = adLockOptimistic
+        login.Open "Select * from Users where UserName='" & txtUsername.Text & "'", conn, login.CursorType, login.LockType, adCmdUnknown
+        
+        If login.EOF Then
+            MessageBar.Caption = "ERROR: No such user exists! Please check for spelling errors."
+            txtUsername.SetFocus
             Timer1.Enabled = True
             Exit Sub
+        Else
+            If login.Fields("Password") = txtPassword.Text Then
+                Me.Hide
+                HomeView.Show
+                usrLogin login.Fields("Username"), login.Fields("Password")
+                txtUsername.Text = ""
+                txtPassword.Text = ""
+            Else
+                MessageBar.Caption = "ERROR: Wrong password! Please check for spelling/capitalization errors."
+                txtPassword.SetFocus
+                Timer1.Enabled = True
+                Exit Sub
+            End If
         End If
     End If
-End If
-
 End Sub
 
 Private Sub cmdLogin_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-cmdLogin.BackColor = &HC0&
-cmdCancel.BackColor = &H8000000D
-cmdLogin.FontItalic = True
-cmdCancel.FontItalic = False
-
+    cmdLogin.BackColor = &HC0&
+    cmdCancel.BackColor = &H8000000D
+    cmdLogin.FontItalic = True
+    cmdCancel.FontItalic = False
 End Sub
 
 Private Sub Form_Activate()
-txtUsername.SetFocus
-exitVal = vbNo
+    txtUsername.SetFocus
+    exitVal = vbNo
+End Sub
+
+Private Sub Form_Initialize()
+    Token = InitGDIPlus
+    C = Me.BackColor
+    If C < 0 Then C = GetSysColor(C - &H80000000)
 End Sub
 
 Private Sub Form_Load()
-Token = InitGDIPlus
-C = Me.BackColor
-If C < 0 Then C = GetSysColor(C - &H80000000)
- 
-ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 35, 35, C, True)
-cmdLogin.BackColor = &H8000000D
-cmdCancel.BackColor = &H8000000D
+    ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 100, 80, &HADADAD, True)
 
-i = 0
-Timer1.Enabled = False
-exitVal = vbNo
+    cmdLogin.BackColor = &H8000000D
+    cmdCancel.BackColor = &H8000000D
+
+    Timer1.Enabled = False
+    exitVal = vbNo
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-cmdLogin.BackColor = &H8000000D
-cmdCancel.BackColor = &H8000000D
-cmdLogin.FontItalic = False
-cmdCancel.FontItalic = False
+    cmdLogin.BackColor = &H8000000D
+    cmdCancel.BackColor = &H8000000D
+    cmdLogin.FontItalic = False
+    cmdCancel.FontItalic = False
+End Sub
 
+Private Sub Form_Resize()
+    Me.PaintPicture Me.Picture, 0, 0, Me.Width, Me.Height
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-exitVal = MsgBox("Are you sure you want to exit the application?", vbYesNo + vbDefaultButton2 + vbInformation + vbApplicationModal, "Confirm Exit")
-If exitVal = vbYes Then
-    FreeGDIPlus Token
-    End
-Else
-    Cancel = 1
-End If
+    exitVal = MsgBox("Are you sure you want to exit the application?", vbYesNo + vbDefaultButton2 + vbInformation + vbApplicationModal, "Confirm Exit")
+    If exitVal = vbYes Then
+        FreeGDIPlus Token
+        End
+    Else
+        Cancel = 1
+    End If
 End Sub
 
 Private Sub Timer1_Timer()
-MessageBar.FontBold = Not MessageBar.FontBold
+    MessageBar.FontBold = Not MessageBar.FontBold
 End Sub

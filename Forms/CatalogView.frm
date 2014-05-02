@@ -81,8 +81,6 @@ Begin VB.Form CatalogView
       SplitCount      =   1
       BeginProperty Split0 
          MarqueeStyle    =   3
-         AllowRowSizing  =   -1  'True
-         AllowSizing     =   -1  'True
          BeginProperty Column00 
          EndProperty
          BeginProperty Column01 
@@ -98,7 +96,7 @@ Begin VB.Form CatalogView
       ScaleWidth      =   735
       TabIndex        =   0
       Tag             =   "no_resize"
-      ToolTipText     =   "Go to Main Screen"
+      ToolTipText     =   "Students Book House"
       Top             =   240
       Width           =   735
    End

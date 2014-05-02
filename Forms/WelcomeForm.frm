@@ -75,6 +75,7 @@ Begin VB.Form HomeView
       ScaleHeight     =   1635
       ScaleWidth      =   2835
       TabIndex        =   9
+      ToolTipText     =   "Exit the App"
       Top             =   3600
       Width           =   2895
       Begin VB.Label ExitOption 
@@ -94,6 +95,7 @@ Begin VB.Form HomeView
          Height          =   495
          Left            =   0
          TabIndex        =   15
+         ToolTipText     =   "Exit the App"
          Top             =   1200
          Width           =   2895
       End
@@ -105,6 +107,7 @@ Begin VB.Form HomeView
       ScaleHeight     =   1635
       ScaleWidth      =   2835
       TabIndex        =   8
+      ToolTipText     =   "Go to Users Management"
       Top             =   1560
       Width           =   2895
       Begin VB.Label ReportsOption 
@@ -124,6 +127,7 @@ Begin VB.Form HomeView
          Height          =   495
          Left            =   0
          TabIndex        =   12
+         ToolTipText     =   "Go to Users Management"
          Top             =   1200
          Width           =   2895
       End
@@ -135,6 +139,7 @@ Begin VB.Form HomeView
       ScaleHeight     =   1635
       ScaleWidth      =   2835
       TabIndex        =   7
+      ToolTipText     =   "View Application Details"
       Top             =   3600
       Width           =   2895
       Begin VB.Label AboutOption 
@@ -154,6 +159,7 @@ Begin VB.Form HomeView
          Height          =   495
          Left            =   0
          TabIndex        =   14
+         ToolTipText     =   "View Application Details"
          Top             =   1200
          Width           =   2895
       End
@@ -165,6 +171,7 @@ Begin VB.Form HomeView
       ScaleHeight     =   1635
       ScaleWidth      =   2835
       TabIndex        =   5
+      ToolTipText     =   "Go to Book Catalog"
       Top             =   3600
       Width           =   2895
       Begin VB.Label CatalogOption 
@@ -184,6 +191,7 @@ Begin VB.Form HomeView
          Height          =   495
          Left            =   0
          TabIndex        =   13
+         ToolTipText     =   "Go to Book Catalog"
          Top             =   1200
          Width           =   2895
       End
@@ -216,6 +224,7 @@ Begin VB.Form HomeView
          Height          =   495
          Left            =   0
          TabIndex        =   10
+         ToolTipText     =   "Go to Billing Screen"
          Top             =   1200
          Width           =   2895
       End
@@ -239,6 +248,7 @@ Begin VB.Form HomeView
       ScaleHeight     =   1635
       ScaleWidth      =   2835
       TabIndex        =   6
+      ToolTipText     =   "Go to Inventory Management"
       Top             =   1560
       Width           =   2895
       Begin VB.Label InventoryOption 
@@ -258,6 +268,7 @@ Begin VB.Form HomeView
          Height          =   495
          Left            =   0
          TabIndex        =   11
+         ToolTipText     =   "Go to Inventory Management"
          Top             =   1200
          Width           =   2895
       End
@@ -339,11 +350,11 @@ Dim C As Long
 Dim exitVal As Integer
 
 Private Sub AboutIcon_Click()
-    MsgBox "xBookShop" & vbNewLine & "Developed by Soham Banerjee" & vbNewLine & "2nd Year, CSE Dept." & vbNewLine & "IEM Kolkata" & vbNewLine & "www.xeqt.in", vbApplicationModal + vbOKOnly + vbInformation, "About xBookShop"
+    MsgBox "xBookShop" & vbNewLine & "Developed by Soham Banerjee" & vbNewLine & "2nd Year, CSE Dept." & vbNewLine & "IEM Kolkata" & vbNewLine & "www.xeqt.in" & vbNewLine & vbNewLine & "Licensed to Students Book House" & vbNewLine & "All Rights Reserved", vbApplicationModal + vbOKOnly + vbInformation, "About xBookShop"
 End Sub
 
 Private Sub AboutOption_Click()
-    MsgBox "xBookShop" & vbNewLine & "Developed by Soham Banerjee" & vbNewLine & "2nd Year, CSE Dept." & vbNewLine & "IEM Kolkata" & vbNewLine & "www.xeqt.in", vbApplicationModal + vbOKOnly + vbInformation, "About xBookShop"
+    MsgBox "xBookShop" & vbNewLine & "Developed by Soham Banerjee" & vbNewLine & "2nd Year, CSE Dept." & vbNewLine & "IEM Kolkata" & vbNewLine & "www.xeqt.in" & vbNewLine & vbNewLine & "Licensed to Students Book House" & vbNewLine & "All Rights Reserved", vbApplicationModal + vbOKOnly + vbInformation, "About xBookShop"
 End Sub
 
 Private Sub BillingIcon_Click()

@@ -633,7 +633,7 @@ Begin VB.Form InventoryView
       ScaleWidth      =   735
       TabIndex        =   0
       Tag             =   "no_resize"
-      ToolTipText     =   "Go to Main Screen"
+      ToolTipText     =   "Students Book House"
       Top             =   120
       Width           =   735
    End

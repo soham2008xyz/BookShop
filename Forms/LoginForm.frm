@@ -60,7 +60,7 @@ Begin VB.Form LoginView
       ScaleWidth      =   735
       TabIndex        =   0
       Tag             =   "no_resize"
-      ToolTipText     =   "Go to Main Screen"
+      ToolTipText     =   "Students Book House"
       Top             =   240
       Width           =   735
    End
@@ -103,7 +103,7 @@ Begin VB.Form LoginView
       MousePointer    =   10  'Up Arrow
       TabIndex        =   8
       Top             =   3600
-      Width           =   2535
+      Width           =   2175
    End
    Begin VB.Label cmdLogin 
       Alignment       =   2  'Center
@@ -266,7 +266,7 @@ Private Sub cmdCancel_Click()
     Unload Me
 End Sub
 
-Private Sub cmdCancel_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub cmdCancel_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     cmdLogin.BackColor = &H8000000D
     cmdCancel.BackColor = &HC0&
     cmdLogin.FontItalic = False
@@ -315,7 +315,7 @@ Private Sub cmdLogin_Click()
     End If
 End Sub
 
-Private Sub cmdLogin_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub cmdLogin_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     cmdLogin.BackColor = &HC0&
     cmdCancel.BackColor = &H8000000D
     cmdLogin.FontItalic = True
@@ -343,7 +343,7 @@ Private Sub Form_Load()
     exitVal = vbNo
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     cmdLogin.BackColor = &H8000000D
     cmdCancel.BackColor = &H8000000D
     cmdLogin.FontItalic = False
@@ -362,4 +362,12 @@ End Sub
 
 Private Sub Timer1_Timer()
     MessageBar.FontBold = Not MessageBar.FontBold
+End Sub
+
+Private Sub txtUsername_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = 13 Then Call cmdLogin_Click
+End Sub
+
+Private Sub txtPassword_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = 13 Then Call cmdLogin_Click
 End Sub

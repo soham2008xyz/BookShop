@@ -9,7 +9,6 @@ Begin VB.Form UserView
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   15030
-   LinkTopic       =   "Form1"
    Picture         =   "UserView.frx":0000
    ScaleHeight     =   7290
    ScaleWidth      =   15030
@@ -386,7 +385,7 @@ Begin VB.Form UserView
       ScaleWidth      =   735
       TabIndex        =   0
       Tag             =   "no_resize"
-      ToolTipText     =   "Go to Main Screen"
+      ToolTipText     =   "Students Book House"
       Top             =   120
       Width           =   735
    End

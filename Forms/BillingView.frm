@@ -4,7 +4,7 @@ Object = "{935C9182-411B-4FFB-9512-97C8745743BC}#2.5#0"; "AResize.ocx"
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Begin VB.Form BillingView 
    AutoRedraw      =   -1  'True
-   Caption         =   "Billing"
+   Caption         =   "Generate Bill"
    ClientHeight    =   9030
    ClientLeft      =   120
    ClientTop       =   465
@@ -20,14 +20,22 @@ Begin VB.Form BillingView
       TabIndex        =   14
       Top             =   1560
       Width           =   6975
-      _extentx        =   12303
-      _extenty        =   2778
-      font            =   "BillingView.frx":46D2
-      caption         =   "// Add to Cart"
-      forecolor       =   192
-      forecolordisabled=   13977088
-      xp7_bordercolor =   -2147483635
-      transparent     =   -1  'True
+      _ExtentX        =   12303
+      _ExtentY        =   2778
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Roboto Light"
+         Size            =   12
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   192
+      ForeColorDisabled=   13977088
+      XP7_BorderColor =   -2147483635
+      Caption         =   "// Add to Cart"
+      Transparent     =   -1  'True
       Begin VB.ComboBox BookQty 
          BeginProperty Font 
             Name            =   "Roboto Light"
@@ -114,14 +122,22 @@ Begin VB.Form BillingView
       TabIndex        =   13
       Top             =   3360
       Width           =   6975
-      _extentx        =   12303
-      _extenty        =   9128
-      font            =   "BillingView.frx":46FE
-      caption         =   "// Cart Details"
-      forecolor       =   192
-      forecolordisabled=   13977088
-      xp7_bordercolor =   -2147483635
-      transparent     =   -1  'True
+      _ExtentX        =   12303
+      _ExtentY        =   9128
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Roboto Light"
+         Size            =   12
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   192
+      ForeColorDisabled=   13977088
+      XP7_BorderColor =   -2147483635
+      Caption         =   "// Cart Details"
+      Transparent     =   -1  'True
       Begin VB.ListBox BillList 
          BeginProperty Font 
             Name            =   "Roboto Light"
@@ -133,12 +149,35 @@ Begin VB.Form BillingView
             Strikethrough   =   0   'False
          EndProperty
          Height          =   3525
-         ItemData        =   "BillingView.frx":472A
+         ItemData        =   "BillingView.frx":46D2
          Left            =   240
-         List            =   "BillingView.frx":472C
+         List            =   "BillingView.frx":46D4
          TabIndex        =   19
          Top             =   480
          Width           =   6495
+      End
+      Begin VB.Label cmdBack 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BackColor       =   &H8000000D&
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "<< Back"
+         BeginProperty Font 
+            Name            =   "Roboto Light"
+            Size            =   14.25
+            Charset         =   0
+            Weight          =   300
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000005&
+         Height          =   495
+         Left            =   240
+         MousePointer    =   10  'Up Arrow
+         TabIndex        =   22
+         Top             =   4320
+         Width           =   1815
       End
       Begin VB.Label cmdProceed 
          Alignment       =   2  'Center
@@ -158,11 +197,11 @@ Begin VB.Form BillingView
          EndProperty
          ForeColor       =   &H80000005&
          Height          =   495
-         Left            =   3720
+         Left            =   4680
          MousePointer    =   10  'Up Arrow
          TabIndex        =   21
          Top             =   4320
-         Width           =   2175
+         Width           =   2055
       End
       Begin VB.Label cmdDelete 
          Alignment       =   2  'Center
@@ -182,11 +221,11 @@ Begin VB.Form BillingView
          EndProperty
          ForeColor       =   &H80000005&
          Height          =   495
-         Left            =   1200
+         Left            =   2400
          MousePointer    =   10  'Up Arrow
          TabIndex        =   20
          Top             =   4320
-         Width           =   2175
+         Width           =   1935
       End
    End
    Begin BookShop.Frameset PriceFrame 
@@ -195,13 +234,21 @@ Begin VB.Form BillingView
       TabIndex        =   6
       Top             =   6360
       Width           =   7095
-      _extentx        =   12515
-      _extenty        =   3836
-      font            =   "BillingView.frx":472E
-      caption         =   "// Book Details"
-      forecolor       =   192
-      xp7_bordercolor =   -2147483635
-      transparent     =   -1  'True
+      _ExtentX        =   12515
+      _ExtentY        =   3836
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Roboto Light"
+         Size            =   12
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   192
+      XP7_BorderColor =   -2147483635
+      Caption         =   "// Book Details"
+      Transparent     =   -1  'True
       Begin VB.Label txtPrice 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
@@ -323,17 +370,25 @@ Begin VB.Form BillingView
       TabIndex        =   4
       Top             =   1560
       Width           =   7095
-      _extentx        =   12515
-      _extenty        =   8070
-      font            =   "BillingView.frx":475A
-      framestyle      =   13
-      caption         =   "// Select Book"
-      forecolor       =   192
-      forecolordisabled=   0
-      xp7_bordercolor =   -2147483635
-      transparent     =   -1  'True
+      _ExtentX        =   12515
+      _ExtentY        =   8070
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Roboto Light"
+         Size            =   12
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      FrameStyle      =   13
+      ForeColor       =   192
+      ForeColorDisabled=   0
+      XP7_BorderColor =   -2147483635
+      Caption         =   "// Select Book"
+      Transparent     =   -1  'True
       Begin MSDataListLib.DataList BookContainer 
-         Bindings        =   "BillingView.frx":4786
+         Bindings        =   "BillingView.frx":46D6
          Height          =   3840
          Left            =   240
          TabIndex        =   5
@@ -512,6 +567,17 @@ Dim C As Long
 Dim exitVal As Integer
 Dim billCount As Integer
 
+Private Sub BillList_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If cmdAdd.Enabled Then cmdAdd.BackColor = &H8000000D
+    If cmdDelete.Enabled Then cmdDelete.BackColor = &H8000000D
+    If cmdProceed.Enabled Then cmdProceed.BackColor = &H8000000D
+    If cmdBack.Enabled Then cmdBack.BackColor = &H8000000D
+    cmdAdd.FontItalic = False
+    cmdProceed.FontItalic = False
+    cmdDelete.FontItalic = False
+    cmdBack.FontItalic = False
+End Sub
+
 Private Sub BookContainer_Click()
     If BookContainer.SelectedItem = Null Then
         Exit Sub
@@ -523,6 +589,7 @@ Private Sub BookContainer_Click()
         
         BookQty.Clear
         BookQty.Enabled = False
+        cmdAdd.Enabled = False
         Dim q, i As Integer
         q = Val(BookList.Recordset.Fields("QTY"))
         If (q > 0) Then
@@ -530,12 +597,24 @@ Private Sub BookContainer_Click()
                 BookQty.AddItem i
             Next i
             BookQty.Enabled = True
+            cmdAdd.Enabled = True
             txtQty.ForeColor = &H0&
         Else
             BookQty.AddItem 0
             txtQty.ForeColor = &HC0&
         End If
     End If
+End Sub
+
+Private Sub BookContainer_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If cmdAdd.Enabled Then cmdAdd.BackColor = &H8000000D
+    If cmdDelete.Enabled Then cmdDelete.BackColor = &H8000000D
+    If cmdProceed.Enabled Then cmdProceed.BackColor = &H8000000D
+    If cmdBack.Enabled Then cmdBack.BackColor = &H8000000D
+    cmdAdd.FontItalic = False
+    cmdProceed.FontItalic = False
+    cmdDelete.FontItalic = False
+    cmdBack.FontItalic = False
 End Sub
 
 Private Sub cmdAdd_Click()
@@ -558,6 +637,7 @@ Private Sub cmdAdd_Click()
                     
                     BookQty.Clear
                     BookQty.Enabled = False
+                    cmdAdd.Enabled = False
                     Dim q, i As Integer
                     q = Val(BookList.Recordset.Fields("QTY"))
                     If (q > 0) Then
@@ -565,6 +645,7 @@ Private Sub cmdAdd_Click()
                             BookQty.AddItem i
                         Next i
                         BookQty.Enabled = True
+                        cmdAdd.Enabled = True
                     Else
                         BookQty.AddItem 0
                         txtQty.ForeColor = &HC0&
@@ -578,6 +659,65 @@ Private Sub cmdAdd_Click()
     Else
         MsgBox "Please select a valid quantity first!", vbApplicationModal + vbOKOnly + vbExclamation, "Please select quantity"
     End If
+End Sub
+
+Private Sub cmdAdd_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    cmdAdd.BackColor = &H80&
+    If cmdDelete.Enabled Then cmdDelete.BackColor = &H8000000D
+    If cmdProceed.Enabled Then cmdProceed.BackColor = &H8000000D
+    If cmdBack.Enabled Then cmdBack.BackColor = &H8000000D
+    cmdAdd.FontItalic = True
+    cmdProceed.FontItalic = False
+    cmdDelete.FontItalic = False
+    cmdBack.FontItalic = False
+End Sub
+
+Private Sub cmdBack_Click()
+    Unload Me
+End Sub
+
+Private Sub cmdBack_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If cmdAdd.Enabled Then cmdAdd.BackColor = &H8000000D
+    If cmdDelete.Enabled Then cmdDelete.BackColor = &H8000000D
+    If cmdProceed.Enabled Then cmdProceed.BackColor = &H8000000D
+    cmdBack.BackColor = &H80&
+    cmdAdd.FontItalic = False
+    cmdProceed.FontItalic = False
+    cmdDelete.FontItalic = False
+    cmdBack.FontItalic = True
+End Sub
+
+Private Sub cmdDelete_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If cmdAdd.Enabled Then cmdAdd.BackColor = &H8000000D
+    cmdDelete.BackColor = &H80&
+    If cmdProceed.Enabled Then cmdProceed.BackColor = &H8000000D
+    If cmdBack.Enabled Then cmdBack.BackColor = &H8000000D
+    cmdAdd.FontItalic = False
+    cmdProceed.FontItalic = False
+    cmdDelete.FontItalic = True
+    cmdBack.FontItalic = False
+End Sub
+
+Private Sub cmdProceed_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If cmdAdd.Enabled Then cmdAdd.BackColor = &H8000000D
+    If cmdDelete.Enabled Then cmdDelete.BackColor = &H8000000D
+    cmdProceed.BackColor = &H80&
+    If cmdBack.Enabled Then cmdBack.BackColor = &H8000000D
+    cmdAdd.FontItalic = False
+    cmdProceed.FontItalic = True
+    cmdDelete.FontItalic = False
+    cmdBack.FontItalic = False
+End Sub
+
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If cmdAdd.Enabled Then cmdAdd.BackColor = &H8000000D
+    If cmdDelete.Enabled Then cmdDelete.BackColor = &H8000000D
+    If cmdProceed.Enabled Then cmdProceed.BackColor = &H8000000D
+    If cmdBack.Enabled Then cmdBack.BackColor = &H8000000D
+    cmdAdd.FontItalic = False
+    cmdProceed.FontItalic = False
+    cmdDelete.FontItalic = False
+    cmdBack.FontItalic = False
 End Sub
 
 Private Sub cmdDelete_Click()
@@ -623,7 +763,7 @@ Private Sub cmdProceed_Click()
                 If Len(Left$(BillList.List(i), (InStrRev(BillList.List(i), "-", , vbTextCompare) - 2))) > 32 Then
                     PrintView.txtBill.Text = PrintView.txtBill.Text & Left$(Left$(BillList.List(i), (InStrRev(BillList.List(i), "-", , vbTextCompare) - 2)), 32) & "..." & vbTab & vbTab
                 Else
-                    PrintView.txtBill.Text = PrintView.txtBill.Text & Left$(BillList.List(i), (InStrRev(BillList.List(i), "-", , vbTextCompare) - 2)) & String$(42 - Len(Left$(BillList.List(i), (InStrRev(BillList.List(i), "-", , vbTextCompare) - 2))), " ") & vbTab & vbTab
+                    PrintView.txtBill.Text = PrintView.txtBill.Text & Left$(BillList.List(i), (InStrRev(BillList.List(i), "-", , vbTextCompare) - 2)) & String$(43 - Len(Left$(BillList.List(i), (InStrRev(BillList.List(i), "-", , vbTextCompare) - 2))), " ") & vbTab & vbTab
                 End If
                 PrintView.txtBill.Text = PrintView.txtBill.Text & Mid$(BillList.List(i), InStrRev(BillList.List(i), "x", , vbTextCompare) + 2) & vbTab & Mid$(BillList.List(i), InStrRev(BillList.List(i), ".", , vbTextCompare) + 2, (InStrRev(BillList.List(i), "x", , vbTextCompare) - 2) - (InStrRev(BillList.List(i), ".", , vbTextCompare) + 2) + 1) & vbTab & Val(Mid$(BillList.List(i), InStrRev(BillList.List(i), "x", , vbTextCompare) + 2)) * Val(Mid$(BillList.List(i), InStrRev(BillList.List(i), ".", , vbTextCompare) + 2, (InStrRev(BillList.List(i), "x", , vbTextCompare) - 2) - (InStrRev(BillList.List(i), ".", , vbTextCompare) + 2) + 1)) & vbNewLine
                 amt = amt + (Val(Mid$(BillList.List(i), InStrRev(BillList.List(i), "x", , vbTextCompare) + 2)) * Val(Mid$(BillList.List(i), InStrRev(BillList.List(i), ".", , vbTextCompare) + 2, (InStrRev(BillList.List(i), "x", , vbTextCompare) - 2) - (InStrRev(BillList.List(i), ".", , vbTextCompare) + 2) + 1)))
@@ -632,6 +772,9 @@ Private Sub cmdProceed_Click()
             PrintView.txtAmt.Caption = "Rs. " & amt
             billCount = 0
             BillList.Clear
+            BookQty.Enabled = False
+            BookQty.Clear
+            cmdAdd.Enabled = False
             cmdDelete.Enabled = False
             cmdProceed.Enabled = False
             cmdDelete.BackColor = QBColor(8)
@@ -658,6 +801,14 @@ End Sub
 
 Private Sub Form_Load()
    ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 100, 80, &HADADAD, True)
+
+   BookList.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & App.Path & "\db\BookDB.mdb;Persist Security Info=False"
+   BookList.CursorLocation = adUseClient
+   BookList.CursorType = adOpenDynamic
+   BookList.CommandType = adCmdTable
+   BookList.RecordSource = "BookList"
+   BookList.Refresh
+
    BookFrame.AutoReDraw = True
    BookFrame.ReDraw
    PriceFrame.AutoReDraw = True
@@ -666,20 +817,21 @@ Private Sub Form_Load()
    OptionsFrame.ReDraw
    BillFrame.AutoReDraw = True
    BillFrame.ReDraw
+   Me.Width = Me.Width + 10
    
    BookQty.Clear
    BookQty.AddItem 0
    BookQty.Enabled = False
+   cmdAdd.Enabled = False
    cmdDelete.Enabled = False
    cmdProceed.Enabled = False
    cmdDelete.BackColor = QBColor(8)
    cmdProceed.BackColor = QBColor(8)
+   cmdAdd.BackColor = QBColor(8)
    MessageBar.Caption = "Please add items to your cart."
    
    exitVal = vbNo
    billCount = 0
-   
-   Me.Width = Me.Width + 10
 End Sub
 
 Private Sub Form_Resize()
@@ -694,7 +846,6 @@ Private Sub Form_Unload(Cancel As Integer)
     If exitVal = vbYes Then
         HomeView.Show
         FreeGDIPlus Token
-        Books.Close
         Unload Me
     Else
         Cancel = 1

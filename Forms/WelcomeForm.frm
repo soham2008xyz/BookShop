@@ -338,6 +338,14 @@ Dim Token As Long
 Dim C As Long
 Dim exitVal As Integer
 
+Private Sub AboutIcon_Click()
+    MsgBox "xBookShop" & vbNewLine & "Developed by Soham Banerjee" & vbNewLine & "2nd Year, CSE Dept." & vbNewLine & "IEM Kolkata" & vbNewLine & "www.xeqt.in", vbApplicationModal + vbOKOnly + vbInformation, "About xBookShop"
+End Sub
+
+Private Sub AboutOption_Click()
+    MsgBox "xBookShop" & vbNewLine & "Developed by Soham Banerjee" & vbNewLine & "2nd Year, CSE Dept." & vbNewLine & "IEM Kolkata" & vbNewLine & "www.xeqt.in", vbApplicationModal + vbOKOnly + vbInformation, "About xBookShop"
+End Sub
+
 Private Sub BillingIcon_Click()
     Me.Hide
     BillingView.Show
@@ -346,6 +354,16 @@ End Sub
 Private Sub BillingOption_Click()
     Me.Hide
     BillingView.Show
+End Sub
+
+Private Sub CatalogOption_Click()
+    Me.Hide
+    CatalogView.Show
+End Sub
+
+Private Sub CatalogIcon_Click()
+    Me.Hide
+    CatalogView.Show
 End Sub
 
 Private Sub ExitIcon_Click()
@@ -399,7 +417,7 @@ Private Sub Form_Unload(Cancel As Integer)
     End If
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H8000000D
@@ -415,7 +433,7 @@ Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y A
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub BillingOption_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub BillingOption_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H80&
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H8000000D
@@ -431,7 +449,7 @@ Private Sub BillingOption_MouseMove(Button As Integer, Shift As Integer, x As Si
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub BillingIcon_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub BillingIcon_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H80&
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H8000000D
@@ -447,7 +465,25 @@ Private Sub BillingIcon_MouseMove(Button As Integer, Shift As Integer, x As Sing
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub InventoryOption_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub InventoryIcon_Click()
+    If usertype = "ADMIN" Then
+        Me.Hide
+        InventoryView.Show
+    Else
+        MsgBox "Only administrators can edit the inventory. Please login with an administrator account.", vbApplicationModal + vbOKOnly + vbInformation + vbDefaultButton1, "Administrator Account Required"
+    End If
+End Sub
+
+Private Sub InventoryOption_Click()
+    If usertype = "ADMIN" Then
+        Me.Hide
+        InventoryView.Show
+    Else
+        MsgBox "Only administrators can edit the inventory. Please login with an administrator account.", vbApplicationModal + vbOKOnly + vbInformation + vbDefaultButton1, "Administrator Account Required"
+    End If
+End Sub
+
+Private Sub InventoryOption_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H80&
     ReportsOption.BackColor = &H8000000D
@@ -463,7 +499,7 @@ Private Sub InventoryOption_MouseMove(Button As Integer, Shift As Integer, x As 
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub InventoryIcon_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub InventoryIcon_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H80&
     ReportsOption.BackColor = &H8000000D
@@ -479,7 +515,25 @@ Private Sub InventoryIcon_MouseMove(Button As Integer, Shift As Integer, x As Si
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub ReportsOption_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub ReportsIcon_Click()
+    If usertype = "ADMIN" Then
+        Me.Hide
+        Userview.Show
+    Else
+        MsgBox "Only administrators can edit users. Please login with an administrator account.", vbApplicationModal + vbOKOnly + vbInformation + vbDefaultButton1, "Administrator Account Required"
+    End If
+End Sub
+
+Private Sub ReportsOption_Click()
+    If usertype = "ADMIN" Then
+        Me.Hide
+        Userview.Show
+    Else
+        MsgBox "Only administrators can edit users. Please login with an administrator account.", vbApplicationModal + vbOKOnly + vbInformation + vbDefaultButton1, "Administrator Account Required"
+    End If
+End Sub
+
+Private Sub ReportsOption_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H80&
@@ -495,7 +549,7 @@ Private Sub ReportsOption_MouseMove(Button As Integer, Shift As Integer, x As Si
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub ReportsIcon_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub ReportsIcon_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H80&
@@ -511,7 +565,7 @@ Private Sub ReportsIcon_MouseMove(Button As Integer, Shift As Integer, x As Sing
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub CatalogOption_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub CatalogOption_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H8000000D
@@ -527,7 +581,7 @@ Private Sub CatalogOption_MouseMove(Button As Integer, Shift As Integer, x As Si
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub CatalogIcon_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub CatalogIcon_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H8000000D
@@ -543,7 +597,7 @@ Private Sub CatalogIcon_MouseMove(Button As Integer, Shift As Integer, x As Sing
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub AboutOption_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub AboutOption_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H8000000D
@@ -559,7 +613,7 @@ Private Sub AboutOption_MouseMove(Button As Integer, Shift As Integer, x As Sing
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub AboutIcon_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub AboutIcon_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H8000000D
@@ -575,7 +629,7 @@ Private Sub AboutIcon_MouseMove(Button As Integer, Shift As Integer, x As Single
     ExitOption.FontItalic = False
 End Sub
 
-Private Sub ExitOption_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub ExitOption_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H8000000D
@@ -591,7 +645,7 @@ Private Sub ExitOption_MouseMove(Button As Integer, Shift As Integer, x As Singl
     ExitOption.FontItalic = True
 End Sub
 
-Private Sub ExitIcon_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub ExitIcon_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     BillingOption.BackColor = &H8000000D
     InventoryOption.BackColor = &H8000000D
     ReportsOption.BackColor = &H8000000D

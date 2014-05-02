@@ -302,7 +302,7 @@ Private Sub cmdLogin_Click()
             If login.Fields("Password") = txtPassword.Text Then
                 Me.Hide
                 HomeView.Show
-                usrLogin login.Fields("Username"), login.Fields("Password")
+                usrLogin login.Fields("UserName"), login.Fields("Password"), login.Fields("UserType")
                 txtUsername.Text = ""
                 txtPassword.Text = ""
             Else

@@ -1,11 +1,12 @@
 Attribute VB_Name = "modUser"
-Public username As String, password As String
+Public username As String, password As String, usertype As String
 Public lastLogin As Date
 Public loggedIn As Boolean
 
 Public Sub initUser()
     username = ""
     password = ""
+    usertype = "USER"
     loggedIn = False
 End Sub
 
@@ -14,11 +15,12 @@ Public Function hashPwd(pwd As String) As String
     
 End Function
 
-Public Sub usrLogin(usr As String, pwd As String)
+Public Sub usrLogin(usr As String, pwd As String, ut As String)
     If Not loggedIn Then
         username = usr
         password = pwd
         loggedIn = True
+        usertype = ut
         lastLogin = Time
         Debug.Print username & " logged in at " & lastLogin
     Else
@@ -31,6 +33,7 @@ Public Sub usrLogout()
         Debug.Print username & " logged out at " & Time
         username = ""
         password = ""
+        usertype = "USER"
         loggedIn = False
     Else
         Debug.Print "No user is logged in! Please login first."

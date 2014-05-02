@@ -367,6 +367,20 @@ Private Sub cmdProceed_Click()
     End Select
 End Sub
 
+Private Sub cmdPrint_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    cmdPrint.BackColor = &H80&
+    cmdProceed.BackColor = &H8000000D
+    cmdPrint.FontItalic = True
+    cmdProceed.FontItalic = False
+End Sub
+
+Private Sub cmdProceed_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    cmdPrint.BackColor = &H8000000D
+    cmdProceed.BackColor = &H80&
+    cmdPrint.FontItalic = False
+    cmdProceed.FontItalic = True
+End Sub
+
 Private Sub Form_Initialize()
     Token = InitGDIPlus
     C = Me.BackColor
@@ -386,6 +400,14 @@ Private Sub Form_Load()
     lblAmt.FontBold = True
 End Sub
 
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    cmdPrint.BackColor = &H8000000D
+    cmdProceed.BackColor = &H8000000D
+    cmdPrint.FontItalic = False
+    cmdProceed.FontItalic = False
+End Sub
+
 Private Sub Form_Unload(Cancel As Integer)
     FreeGDIPlus Token
 End Sub
+

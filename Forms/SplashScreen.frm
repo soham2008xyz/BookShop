@@ -23,6 +23,26 @@ Begin VB.Form SplashView
       Left            =   7680
       Top             =   3360
    End
+   Begin VB.Label MessageBar 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      Caption         =   "Starting application..."
+      BeginProperty Font 
+         Name            =   "Roboto Condensed Light"
+         Size            =   14.25
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   495
+      Left            =   720
+      TabIndex        =   4
+      Top             =   2160
+      Width           =   6615
+   End
    Begin VB.Label Label4 
       Alignment       =   2  'Center
       BackColor       =   &H8000000D&
@@ -116,146 +136,114 @@ Dim doneAnim, animStarted2, animStarted3 As Boolean
 Dim loadTime As Long
 
 Private Sub Form_Load()
-doneAnim = False
-animCount = 0
-'animCount2 = 0
-'animCount3 = 0
+    doneAnim = False
+    animCount = 0
+    dShort = 100
+    dLong = 300
+    dLong2 = 300
+    dLong3 = 300
 
-dShort = 100
-dLong = 300
-dLong2 = 300
-dLong3 = 300
+    animStarted2 = False
+    animStarted3 = False
+    Timer1.Enabled = True
+    Label3.Left = 0
+    Label3.Visible = False
+    Label2.Left = 0
+    Label2.Visible = False
+    Label1.Left = 0
+    Label1.Visible = False
+    Label4.FontBold = True
 
-animStarted2 = False
-animStarted3 = False
-Timer1.Enabled = True
-Label3.left = 0
-Label3.Visible = False
-Label2.left = 0
-Label2.Visible = False
-Label1.left = 0
-Label1.Visible = False
-Label4.FontBold = True
-
-loadTime = 0
-initUser
-initDB
+    loadTime = 0
+    initUser
+    initDB
 End Sub
 
 Private Sub Timer1_Timer()
-'If Not doneAnim Then
     If animCount = 0 Then
-        'Timer1.Enabled = True
         Label1.Visible = True
-        Label1.left = 0
-        'Label2.Visible = True
-        'Label2.left = Label1.left + 10
+        Label1.Left = 0
         animCount = animCount + 1
     End If
     If animCount > 0 And animCount <= 8 Then
-        Label1.left = Label1.left + dLong
+        Label1.Left = Label1.Left + dLong
         animCount = animCount + 1
         dLong = dLong + 10
     End If
     If animCount > 8 And animCount <= 25 Then
-        Label1.left = Label1.left + dShort
+        Label1.Left = Label1.Left + dShort
         animCount = animCount + 1
     End If
     If animCount > 25 And animCount <= 38 Then
         dLong = dLong - 10
-        Label1.left = Label1.left + dLong
+        Label1.Left = Label1.Left + dLong
         animCount = animCount + 1
     End If
     If animCount > 38 Then
-        'Timer1.Enabled = False
-        'doneAnim = True
         Label1.Visible = False
-        Label1.left = 0
+        Label1.Left = 0
         animCount = 0
         dLong = 300
     End If
-'End If
 
-animCount2 = (animCount - 7)
-If animCount2 < 0 Then animCount2 = animCount2 + 39
-'Label2.Caption = animCount2
-
-'If Not doneAnim Then
+    animCount2 = (animCount - 7)
+    If animCount2 < 0 Then animCount2 = animCount2 + 39
+    
     If animCount2 = 0 Then
-        'Timer1.Enabled = True
         Label2.Visible = True
-        Label2.left = 0
+        Label2.Left = 0
         dLong2 = 300
         animStarted2 = True
-        'Label2.Visible = True
-        'Label2.left = Label1.left + 50
-        'animCount = animCount + 1
     End If
     If animCount2 > 0 And animCount2 <= 8 And animStarted2 Then
-        Label2.left = Label2.left + dLong2
-        'animCount = animCount + 1
+        Label2.Left = Label2.Left + dLong2
         dLong2 = dLong2 + 20
     End If
     If animCount2 > 8 And animCount2 <= 25 And animStarted2 Then
-        Label2.left = Label2.left + dShort
-        'animCount = animCount + 1
+        Label2.Left = Label2.Left + dShort
     End If
     If animCount2 > 25 And animCount2 <= 38 And animStarted2 Then
         dLong2 = dLong2 - 10
-        Label2.left = Label2.left + dLong2
-        'animCount = animCount + 1
+        Label2.Left = Label2.Left + dLong2
     End If
     If animCount2 > 38 Then
-        'Timer1.Enabled = False
-        'doneAnim = True
         Label2.Visible = False
-        Label2.left = 0
-        'animCount = 0
-        'dLong2 = 300
+        Label2.Left = 0
     End If
-'End If
 
-animCount3 = (animCount - 16)
-If animCount3 < 0 Then animCount3 = animCount3 + 39
+    animCount3 = (animCount - 16)
+    If animCount3 < 0 Then animCount3 = animCount3 + 39
 
-'If Not doneAnim Then
     If animCount3 = 0 Then
-        'Timer1.Enabled = True
         Label3.Visible = True
-        Label3.left = 0
+        Label3.Left = 0
         dLong3 = 300
         animStarted3 = True
-        'Label2.Visible = True
-        'Label2.left = Label1.left + 50
-        'animCount = animCount + 1
     End If
     If animCount3 > 0 And animCount3 <= 8 And animStarted3 Then
-        Label3.left = Label3.left + dLong3
-        'animCount = animCount + 1
+        Label3.Left = Label3.Left + dLong3
         dLong3 = dLong3 + 5
     End If
     If animCount3 > 8 And animCount3 <= 25 And animStarted3 Then
-        Label3.left = Label3.left + dShort
-        'animCount = animCount + 1
+        Label3.Left = Label3.Left + dShort
     End If
     If animCount3 > 25 And animCount3 <= 38 And animStarted3 Then
         dLong3 = dLong3 - 5
-        Label3.left = Label3.left + dLong3
-        'animCount = animCount + 1
+        Label3.Left = Label3.Left + dLong3
     End If
     If animCount3 > 38 Then
-        'Timer1.Enabled = False
-        'doneAnim = True
         Label3.Visible = False
-        Label3.left = 0
-        'animCount = 0
-        'dLong2 = 300
+        Label3.Left = 0
     End If
-'End If
-loadTime = loadTime + Timer1.Interval
-If loadTime > 5000 Then
-    Timer1.Enabled = False
-    Unload Me
-    LoginView.Show
-End If
+
+    loadTime = loadTime + Timer1.Interval
+    If loadTime = 1000 Then MessageBar.Caption = "Loading resources..."
+    If loadTime = 2500 Then MessageBar.Caption = "Initializing database connection..."
+    If loadTime = 4500 Then MessageBar.Caption = "All done!"
+    
+    If loadTime > 5000 Then
+        Timer1.Enabled = False
+        Unload Me
+        LoginView.Show
+    End If
 End Sub

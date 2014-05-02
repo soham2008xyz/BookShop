@@ -1,4 +1,5 @@
 VERSION 5.00
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{935C9182-411B-4FFB-9512-97C8745743BC}#2.5#0"; "AResize.ocx"
 Begin VB.Form UserView 
@@ -13,6 +14,37 @@ Begin VB.Form UserView
    ScaleHeight     =   7290
    ScaleWidth      =   15030
    StartUpPosition =   3  'Windows Default
+   Begin MSComctlLib.StatusBar StatusView 
+      Align           =   2  'Align Bottom
+      Height          =   420
+      Left            =   0
+      TabIndex        =   20
+      Top             =   6870
+      Width           =   15030
+      _ExtentX        =   26511
+      _ExtentY        =   741
+      _Version        =   393216
+      BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
+         NumPanels       =   2
+         BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   1
+            Object.Width           =   18891
+         EndProperty
+         BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Object.Width           =   7056
+            MinWidth        =   7056
+         EndProperty
+      EndProperty
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Roboto Light"
+         Size            =   12
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+   End
    Begin BookShop.Frameset DetailsFrame 
       Height          =   3615
       Left            =   7680
@@ -292,11 +324,11 @@ Begin VB.Form UserView
          EndProperty
          ForeColor       =   &H80000005&
          Height          =   495
-         Left            =   4680
+         Left            =   4560
          MousePointer    =   10  'Up Arrow
          TabIndex        =   16
          Top             =   480
-         Width           =   1695
+         Width           =   1815
       End
       Begin VB.Label cmdAdd 
          Alignment       =   2  'Center
@@ -315,7 +347,7 @@ Begin VB.Form UserView
          EndProperty
          ForeColor       =   &H80000005&
          Height          =   495
-         Left            =   2520
+         Left            =   2400
          MousePointer    =   10  'Up Arrow
          TabIndex        =   15
          Top             =   480
@@ -338,7 +370,7 @@ Begin VB.Form UserView
          EndProperty
          ForeColor       =   &H80000005&
          Height          =   495
-         Left            =   480
+         Left            =   360
          MousePointer    =   10  'Up Arrow
          TabIndex        =   14
          Top             =   480
@@ -499,7 +531,6 @@ Option Explicit
 
 Dim Token As Long
 Dim C As Long
-Dim LastI As Integer
 Dim flagNew As Boolean
 
 Private Sub cmdDelete_Click()
@@ -516,6 +547,7 @@ Private Sub cmdDelete_Click()
                 BookResults.ListIndex = 0
             End If
     End Select
+    StatusView.Panels(2).Text = BookResults.ListCount & " users in database"
 End Sub
 
 Private Sub cmdDelete_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -538,6 +570,7 @@ Private Sub BookResults_Click()
     txtBookName.Text = BookList.Recordset.Fields("USERNAME")
     txtAuthorName.Text = BookList.Recordset.Fields("PASSWORD")
     txtISBN.Text = BookList.Recordset.Fields("USERTYPE")
+    StatusView.Panels(1).Text = "User " & (BookResults.ListIndex + 1) & " of " & BookResults.ListCount & " selected"
 End Sub
 
 Private Sub BookResults_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -689,6 +722,18 @@ Private Sub cmdEdit_MouseMove(Button As Integer, Shift As Integer, X As Single, 
 End Sub
 
 Private Sub cmdSave_Click()
+    If txtBookName.Text = "" Then
+        MsgBox "Username cannot be blank!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtBookName.SetFocus
+        Exit Sub
+    End If
+    If txtAuthorName.Text = "" Then
+        MsgBox "Password cannot be blank!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtAuthorName.SetFocus
+        Exit Sub
+    End If
+    txtISBN.Text = UCase(txtISBN.Text)
+    If txtISBN.Text <> "ADMIN" Then txtISBN.Text = "USER"
     BookList.Recordset.Fields("USERNAME") = txtBookName.Text
     BookList.Recordset.Fields("PASSWORD") = txtAuthorName.Text
     BookList.Recordset.Fields("USERTYPE") = txtISBN.Text
@@ -714,6 +759,7 @@ Private Sub cmdSave_Click()
     txtBookName.Enabled = False
     txtAuthorName.Enabled = False
     txtISBN.Enabled = False
+    StatusView.Panels(2).Text = BookResults.ListCount & " users in database"
 End Sub
 
 Private Sub cmdSave_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -729,6 +775,10 @@ Private Sub cmdSave_MouseMove(Button As Integer, Shift As Integer, X As Single, 
     cmdBack.FontItalic = False
     If cmdDelete.Enabled Then cmdDelete.BackColor = &H8000000D
     cmdDelete.FontItalic = False
+End Sub
+
+Private Sub Form_Activate()
+    StatusView.Panels(2).Text = BookResults.ListCount & " users in database"
 End Sub
 
 Private Sub Form_Initialize()
@@ -785,7 +835,6 @@ Private Sub Form_Load()
     
     BookResults.ListIndex = 0
     BookList.Recordset.AbsolutePosition = BookResults.ListIndex + 1
-    LastI = 0
     flagNew = False
 End Sub
 

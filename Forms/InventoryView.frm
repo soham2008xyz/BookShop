@@ -1,16 +1,17 @@
 VERSION 5.00
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{935C9182-411B-4FFB-9512-97C8745743BC}#2.5#0"; "AResize.ocx"
 Begin VB.Form InventoryView 
    AutoRedraw      =   -1  'True
    Caption         =   "View Inventory"
-   ClientHeight    =   8175
+   ClientHeight    =   8580
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   15030
    LinkTopic       =   "Form1"
    Picture         =   "InventoryView.frx":0000
-   ScaleHeight     =   8175
+   ScaleHeight     =   8580
    ScaleWidth      =   15030
    StartUpPosition =   3  'Windows Default
    Begin BookShop.Frameset DetailsFrame 
@@ -694,12 +695,43 @@ Begin VB.Form InventoryView
       ScreenHeightDT  =   768
       ScreenWidthDT   =   1366
       AutoCenterForm  =   -1  'True
-      FormHeightDT    =   8760
+      FormHeightDT    =   9165
       FormWidthDT     =   15270
-      FormScaleHeightDT=   8175
+      FormScaleHeightDT=   8580
       FormScaleWidthDT=   15030
       ResizeFormBackground=   -1  'True
       ResizePictureBoxContents=   -1  'True
+   End
+   Begin MSComctlLib.StatusBar StatusView 
+      Align           =   2  'Align Bottom
+      Height          =   420
+      Left            =   0
+      TabIndex        =   34
+      Top             =   8160
+      Width           =   15030
+      _ExtentX        =   26511
+      _ExtentY        =   741
+      _Version        =   393216
+      BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
+         NumPanels       =   2
+         BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   1
+            Object.Width           =   18891
+         EndProperty
+         BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Object.Width           =   7056
+            MinWidth        =   7056
+         EndProperty
+      EndProperty
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Roboto Light"
+         Size            =   12
+         Charset         =   0
+         Weight          =   300
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
    End
    Begin VB.Label ShopName 
       AutoSize        =   -1  'True
@@ -788,6 +820,7 @@ Private Sub BookResults_Click()
     txtCategory.Text = BookList.Recordset.Fields("CATEGORY")
     txtQty.Text = BookList.Recordset.Fields("QTY")
     txtPrice.Text = BookList.Recordset.Fields("MRP")
+    StatusView.Panels(1).Text = "Book " & (BookResults.ListIndex + 1) & " of " & BookResults.ListCount & " selected"
 End Sub
 
 Private Sub BookResults_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -962,7 +995,7 @@ End Sub
 
 Private Sub cmdDelete_Click()
     Dim index As Integer
-    Select Case MsgBox("Are you sure you want to delete?", vbApplicationModal + vbYesNo + vbQuestion + vbDefaultButton1, "Confirm delete")
+    Select Case MsgBox("Are you sure you want to delete this book from the inventory?", vbApplicationModal + vbYesNo + vbQuestion + vbDefaultButton1, "Confirm delete")
         Case vbYes
             index = BookResults.ListIndex - 1
             BookList.Recordset.Delete
@@ -974,6 +1007,7 @@ Private Sub cmdDelete_Click()
                 BookResults.ListIndex = 0
             End If
     End Select
+    StatusView.Panels(2).Text = BookResults.ListCount & " books in database"
 End Sub
 
 Private Sub cmdDelete_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -1054,6 +1088,12 @@ Private Sub cmdEdit_MouseMove(Button As Integer, Shift As Integer, X As Single, 
 End Sub
 
 Private Sub cmdFilter_Click()
+    If txtSearch.Text = "" Then
+        MsgBox "Enter text to search for!", vbApplicationModal + vbOKOnly + vbInformation, "Enter search term"
+        txtSearch.SetFocus
+        Exit Sub
+    End If
+    
     Dim i As Integer
     For i = LastI To BookResults.ListCount - 1
         If InStr(1, BookResults.List(i), txtSearch.Text, vbTextCompare) > 0 Then
@@ -1258,6 +1298,48 @@ Private Sub cmdReset_MouseMove(Button As Integer, Shift As Integer, X As Single,
 End Sub
 
 Private Sub cmdSave_Click()
+    If txtBookName.Text = "" Then
+        MsgBox "Book name cannot be blank!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtBookName.SetFocus
+        Exit Sub
+    End If
+    If txtAuthorName.Text = "" Then
+        MsgBox "Author name cannot be blank!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtAuthorName.SetFocus
+        Exit Sub
+    End If
+    If txtISBN.Text = "" Then
+        MsgBox "ISBN cannot be blank!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtISBN.SetFocus
+        Exit Sub
+    End If
+    If txtCategory.Text = "" Then
+        MsgBox "Category cannot be blank!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtCategory.SetFocus
+        Exit Sub
+    End If
+    If txtQty.Text = "" Then
+        MsgBox "Quantity cannot be blank!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtQty.SetFocus
+        Exit Sub
+    End If
+    If txtPrice.Text = "" Then
+        MsgBox "Price cannot be blank!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtPrice.SetFocus
+        Exit Sub
+    End If
+    If Not IsNumeric(txtQty.Text) Then
+        MsgBox "Quantity must be a number!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtQty.Text = ""
+        txtQty.SetFocus
+        Exit Sub
+    End If
+    If Not IsNumeric(txtPrice.Text) Then
+        MsgBox "Price must be a number!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtPrice.Text = ""
+        txtPrice.SetFocus
+        Exit Sub
+    End If
     BookList.Recordset.Fields("BOOKNAME") = txtBookName.Text
     BookList.Recordset.Fields("AUTHORNAME") = txtAuthorName.Text
     BookList.Recordset.Fields("ISBN") = txtISBN.Text
@@ -1289,6 +1371,7 @@ Private Sub cmdSave_Click()
     txtCategory.Enabled = False
     txtQty.Enabled = False
     txtPrice.Enabled = False
+    StatusView.Panels(2).Text = BookResults.ListCount & " books in database"
 End Sub
 
 Private Sub cmdSave_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -1316,6 +1399,10 @@ Private Sub cmdSave_MouseMove(Button As Integer, Shift As Integer, X As Single, 
     cmdFilter.FontItalic = False
     cmdReset.FontItalic = False
     cmdDelete.FontItalic = False
+End Sub
+
+Private Sub Form_Activate()
+    StatusView.Panels(2).Text = BookResults.ListCount & " books in database"
 End Sub
 
 Private Sub Form_Initialize()

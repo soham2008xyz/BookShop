@@ -29,6 +29,7 @@ Begin VB.Form HomeView
       FormWidthDT     =   10560
       FormScaleHeightDT=   6105
       FormScaleWidthDT=   10320
+      ResizeFormBackground=   -1  'True
       ResizePictureBoxContents=   -1  'True
    End
    Begin MSComctlLib.StatusBar StatusView 
@@ -109,7 +110,7 @@ Begin VB.Form HomeView
       Begin VB.Label ReportsOption 
          Alignment       =   2  'Center
          BackColor       =   &H8000000D&
-         Caption         =   "// View Reports"
+         Caption         =   "// View Users"
          BeginProperty Font 
             Name            =   "Roboto Light"
             Size            =   14.25
@@ -339,7 +340,12 @@ Dim exitVal As Integer
 
 Private Sub BillingIcon_Click()
     Me.Hide
-    'WelcomeForm.Show
+    BillingView.Show
+End Sub
+
+Private Sub BillingOption_Click()
+    Me.Hide
+    BillingView.Show
 End Sub
 
 Private Sub ExitIcon_Click()
@@ -350,17 +356,10 @@ Private Sub ExitOption_Click()
     Unload Me
 End Sub
 
-Private Sub Form_Resize()
-    'Me.Picture = LoadPicture(App.Path & "\Images\background.jpg")
-    Me.PaintPicture Me.Picture, 0, 0, Me.Width, Me.Height
-End Sub
-
 Private Sub Form_Activate()
     StatusView.Panels(1).Text = "Hello " & username & "!"
     StatusView.Panels(3).Text = "Last logged in at " & lastLogin
     StatusView.Panels(2).Picture = LoadPictureGDIPlus(App.Path & "\Images\clock.png", 30, 25, C, True)
-
-    exitVal = vbNo
 End Sub
 
 Private Sub Form_Initialize()
@@ -389,7 +388,7 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-    exitVal = MsgBox("Are you sure you want to log out?", vbYesNo + vbDefaultButton2 + vbInformation + vbApplicationModal, "Confirm Exit")
+    exitVal = MsgBox("Are you sure you want to log out?", vbYesNo + vbDefaultButton2 + vbQuestion + vbApplicationModal, "Confirm Exit")
     If exitVal = vbYes Then
         usrLogout
         LoginView.Show

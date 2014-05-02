@@ -79,6 +79,7 @@ Begin VB.Form LoginView
       FormWidthDT     =   10380
       FormScaleHeightDT=   4425
       FormScaleWidthDT=   10140
+      ResizeFormBackground=   -1  'True
       ResizePictureBoxContents=   -1  'True
    End
    Begin VB.Label cmdCancel 
@@ -349,12 +350,8 @@ Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y A
     cmdCancel.FontItalic = False
 End Sub
 
-Private Sub Form_Resize()
-    Me.PaintPicture Me.Picture, 0, 0, Me.Width, Me.Height
-End Sub
-
 Private Sub Form_Unload(Cancel As Integer)
-    exitVal = MsgBox("Are you sure you want to exit the application?", vbYesNo + vbDefaultButton2 + vbInformation + vbApplicationModal, "Confirm Exit")
+    exitVal = MsgBox("Are you sure you want to exit the application?", vbYesNo + vbDefaultButton2 + vbQuestion + vbApplicationModal, "Confirm Exit")
     If exitVal = vbYes Then
         FreeGDIPlus Token
         End

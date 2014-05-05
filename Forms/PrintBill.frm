@@ -358,13 +358,7 @@ Private Sub cmdPrint_Click()
 End Sub
 
 Private Sub cmdProceed_Click()
-    Select Case MsgBox("Go back to home screen?", vbApplicationModal + vbYesNo + vbQuestion + vbDefaultButton1, "Sure to proceed?")
-        Case vbYes
-            Unload Me
-            HomeView.Show
-        Case vbNo
-            Exit Sub
-    End Select
+    Unload Me
 End Sub
 
 Private Sub cmdPrint_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -381,13 +375,11 @@ Private Sub cmdProceed_MouseMove(Button As Integer, Shift As Integer, X As Singl
     cmdProceed.FontItalic = True
 End Sub
 
-Private Sub Form_Initialize()
+Private Sub Form_Load()
     Token = InitGDIPlus
     C = Me.BackColor
     If C < 0 Then C = GetSysColor(C - &H80000000)
-End Sub
-
-Private Sub Form_Load()
+    
     ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 100, 80, &HADADAD, True)
     
     txtBill.Text = "Item No." & vbTab & "Name" & vbTab & vbTab & vbTab & vbTab & vbTab & "Qty." & vbTab & "Rate" & vbTab & "Price" & vbNewLine
@@ -408,6 +400,13 @@ Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y A
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-    FreeGDIPlus Token
+    Select Case MsgBox("Go back to home screen?", vbApplicationModal + vbYesNo + vbQuestion + vbDefaultButton1, "Sure to proceed?")
+        Case vbYes
+            Unload Me
+            FreeGDIPlus Token
+            HomeView.Show
+        Case vbNo
+            Cancel = 1
+    End Select
 End Sub
 

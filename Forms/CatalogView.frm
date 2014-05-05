@@ -283,7 +283,18 @@ Private Sub Form_Initialize()
 End Sub
 
 Private Sub Form_Load()
-   ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 100, 80, &HADADAD, True)
+    Token = InitGDIPlus
+    C = Me.BackColor
+    If C < 0 Then C = GetSysColor(C - &H80000000)
+
+    BookList.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & App.Path & "\db\BookDB.mdb;Persist Security Info=False"
+    BookList.CursorLocation = adUseClient
+    BookList.CursorType = adOpenDynamic
+    BookList.CommandType = adCmdUnknown
+    BookList.RecordSource = "Select BOOKNAME, AUTHORNAME, CATEGORY, ISBN, PUBLISHER, BINDING, MRP From BookList"
+    BookList.Refresh
+    
+    ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 100, 80, &HADADAD, True)
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)

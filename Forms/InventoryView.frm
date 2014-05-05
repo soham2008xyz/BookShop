@@ -946,7 +946,15 @@ Private Sub cmdCancel_Click()
         BookResults.ListIndex = 0
         flagNew = False
     End If
-
+    
+    txtBookName.Text = BookList.Recordset.Fields("BOOKNAME")
+    txtAuthorName.Text = BookList.Recordset.Fields("AUTHORNAME")
+    txtISBN.Text = BookList.Recordset.Fields("ISBN")
+    txtCategory.Text = BookList.Recordset.Fields("CATEGORY")
+    txtQty.Text = BookList.Recordset.Fields("QTY")
+    txtPrice.Text = BookList.Recordset.Fields("MRP")
+    StatusView.Panels(1).Text = "Book " & (BookResults.ListIndex + 1) & " of " & BookResults.ListCount & " selected"
+    
     cmdAdd.Enabled = True
     cmdAdd.BackColor = &H8000000D
     cmdEdit.Enabled = True
@@ -1095,7 +1103,7 @@ Private Sub cmdFilter_Click()
     End If
     
     Dim i As Integer
-    For i = LastI To BookResults.ListCount - 1
+    For i = LastI + 1 To BookResults.ListCount - 1
         If InStr(1, BookResults.List(i), txtSearch.Text, vbTextCompare) > 0 Then
             BookResults.ListIndex = i
             LastI = i
@@ -1103,6 +1111,7 @@ Private Sub cmdFilter_Click()
         End If
     Next i
     MsgBox "'" & txtSearch.Text & "' not found in the records!", vbApplicationModal + vbOKOnly + vbInformation, "Not found"
+    LastI = 0
 End Sub
 
 Private Sub cmdFilter_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -1340,6 +1349,18 @@ Private Sub cmdSave_Click()
         txtPrice.SetFocus
         Exit Sub
     End If
+    If Val(txtPrice.Text) < 0 Then
+        MsgBox "Price must be positive!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtPrice.Text = ""
+        txtPrice.SetFocus
+        Exit Sub
+    End If
+    If Val(txtQty.Text) < 0 Then
+        MsgBox "Quantity must be positive!", vbApplicationModal + vbExclamation + vbOKOnly, "Error"
+        txtQty.Text = ""
+        txtQty.SetFocus
+        Exit Sub
+    End If
     BookList.Recordset.Fields("BOOKNAME") = txtBookName.Text
     BookList.Recordset.Fields("AUTHORNAME") = txtAuthorName.Text
     BookList.Recordset.Fields("ISBN") = txtISBN.Text
@@ -1419,6 +1440,9 @@ Private Sub Form_Initialize()
 End Sub
 
 Private Sub Form_Load()
+    Token = InitGDIPlus
+    C = Me.BackColor
+    If C < 0 Then C = GetSysColor(C - &H80000000)
     ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 100, 80, &HADADAD, True)
     
     SearchFrame.AutoReDraw = True

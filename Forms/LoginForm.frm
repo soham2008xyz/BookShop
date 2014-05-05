@@ -167,7 +167,7 @@ Begin VB.Form LoginView
    Begin VB.Label MessageBar 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Enter your username and password and click ""Login"""
+      Caption         =   "Enter your username and password and click 'Login'"
       BeginProperty Font 
          Name            =   "Roboto Condensed Light"
          Size            =   12
@@ -324,16 +324,15 @@ End Sub
 
 Private Sub Form_Activate()
     txtUsername.SetFocus
-    exitVal = vbNo
-End Sub
-
-Private Sub Form_Initialize()
-    Token = InitGDIPlus
-    C = Me.BackColor
-    If C < 0 Then C = GetSysColor(C - &H80000000)
+    MessageBar.Caption = "Enter your username and password and click 'Login'"
+    MessageBar.FontBold = False
 End Sub
 
 Private Sub Form_Load()
+    Token = InitGDIPlus
+    C = Me.BackColor
+    If C < 0 Then C = GetSysColor(C - &H80000000)
+    
     ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 100, 80, &HADADAD, True)
 
     cmdLogin.BackColor = &H8000000D
@@ -341,6 +340,8 @@ Private Sub Form_Load()
 
     Timer1.Enabled = False
     exitVal = vbNo
+    MessageBar.Caption = "Enter your username and password and click 'Login'"
+    MessageBar.FontBold = False
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)

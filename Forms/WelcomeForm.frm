@@ -391,13 +391,11 @@ Private Sub Form_Activate()
     StatusView.Panels(2).Picture = LoadPictureGDIPlus(App.Path & "\Images\clock.png", 30, 25, C, True)
 End Sub
 
-Private Sub Form_Initialize()
+Private Sub Form_Load()
     Token = InitGDIPlus
     C = Me.BackColor
     If C < 0 Then C = GetSysColor(C - &H80000000)
-End Sub
-
-Private Sub Form_Load()
+    
     ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 100, 80, &HADADAD, True)
     BillingIcon.Picture = LoadPictureGDIPlus(App.Path & "\Images\billing.png", 400, 300, vbWhite, True)
     InventoryIcon.Picture = LoadPictureGDIPlus(App.Path & "\Images\inventory.jpg", 400, 300, C, True)

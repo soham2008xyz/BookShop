@@ -620,14 +620,14 @@ End Sub
 Private Sub cmdAdd_Click()
     If Val(BookQty.Text) >= 1 Then
         If Val(BookQty.Text) <= Val(BookList.Recordset.Fields("QTY")) Then
-            Select Case MsgBox("Available in stock = " & BookList.Recordset.Fields("QTY") & vbNewLine & "Remaining in stock = " & CStr(Int(Val(BookList.Recordset.Fields("QTY"))) - (BookQty.ListIndex + 1)) & vbNewLine & "Add to cart?", vbQuestion + vbApplicationModal + vbYesNo + vbDefaultButton1, "Confirm add")
+            Select Case MsgBox("Available in stock = " & BookList.Recordset.Fields("QTY") & vbNewLine & "Remaining in stock = " & CStr(Int(Val(BookList.Recordset.Fields("QTY"))) - (BookQty.Text)) & vbNewLine & "Add to cart?", vbQuestion + vbApplicationModal + vbYesNo + vbDefaultButton1, "Confirm add")
                 Case vbYes
-                    BookList.Recordset.Fields("QTY") = (Int(Val(BookList.Recordset.Fields("QTY"))) - (BookQty.ListIndex + 1))
+                    BookList.Recordset.Fields("QTY") = (Int(Val(BookList.Recordset.Fields("QTY"))) - (BookQty.Text))
                     BookList.Recordset.Update
                     txtQty.Caption = BookList.Recordset.Fields("QTY")
                     MessageBar.Caption = "'" & BookList.Recordset.Fields("BOOKNAME") & "' added to cart!"
                     billCount = billCount + 1
-                    BillList.AddItem BookList.Recordset.Fields("BOOKNAME") & " - Rs. " & BookList.Recordset.Fields("MRP") & " x " & (BookQty.ListIndex + 1)
+                    BillList.AddItem BookList.Recordset.Fields("BOOKNAME") & " - Rs. " & BookList.Recordset.Fields("MRP") & " x " & (BookQty.Text)
                     BillList.ItemData(billCount - 1) = Val(BookList.Recordset.Fields("ID"))
                     
                     cmdDelete.Enabled = True
@@ -709,6 +709,10 @@ Private Sub cmdProceed_MouseMove(Button As Integer, Shift As Integer, X As Singl
     cmdBack.FontItalic = False
 End Sub
 
+Private Sub Form_Activate()
+    MessageBar.Caption = "Please add items to your cart."
+End Sub
+
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     If cmdAdd.Enabled Then cmdAdd.BackColor = &H8000000D
     If cmdDelete.Enabled Then cmdDelete.BackColor = &H8000000D
@@ -787,10 +791,6 @@ Private Sub cmdProceed_Click()
 End Sub
 
 Private Sub Form_Initialize()
-    Token = InitGDIPlus
-    C = Me.BackColor
-    If C < 0 Then C = GetSysColor(C - &H80000000)
-
     BookList.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & App.Path & "\db\BookDB.mdb;Persist Security Info=False"
     BookList.CursorLocation = adUseClient
     BookList.CursorType = adOpenDynamic
@@ -800,6 +800,10 @@ Private Sub Form_Initialize()
 End Sub
 
 Private Sub Form_Load()
+   Token = InitGDIPlus
+   C = Me.BackColor
+   If C < 0 Then C = GetSysColor(C - &H80000000)
+    
    ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 100, 80, &HADADAD, True)
 
    BookList.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & App.Path & "\db\BookDB.mdb;Persist Security Info=False"

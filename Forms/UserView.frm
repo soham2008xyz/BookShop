@@ -781,10 +781,6 @@ Private Sub Form_Activate()
 End Sub
 
 Private Sub Form_Initialize()
-    Token = InitGDIPlus
-    C = Me.BackColor
-    If C < 0 Then C = GetSysColor(C - &H80000000)
-
     BookList.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & App.Path & "\db\BookDB.mdb;Persist Security Info=False"
     BookList.CursorLocation = adUseClient
     BookList.CursorType = adOpenDynamic
@@ -794,6 +790,10 @@ Private Sub Form_Initialize()
 End Sub
 
 Private Sub Form_Load()
+    Token = InitGDIPlus
+    C = Me.BackColor
+    If C < 0 Then C = GetSysColor(C - &H80000000)
+    
     ShopLogo.Picture = LoadPictureGDIPlus(App.Path & "\Images\logo.png", 100, 80, &HADADAD, True)
     
     SearchFrame.AutoReDraw = True
